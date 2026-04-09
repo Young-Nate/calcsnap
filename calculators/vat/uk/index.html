@@ -1,1 +1,205 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"308b1a3ffa6866fb45b5a58c9959b03881ddb305"}}
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAT Calculator UK — Add or Remove 20% VAT | CalcSnap</title>
+  <meta name="description" content="Free UK VAT calculator. Add or remove VAT at 20% (standard), 5% (reduced), or 0% (zero-rated). Instant net/gross calculation — no signup needed." />
+  <meta property="og:title" content="UK VAT Calculator (Net / Gross) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/uk/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"UK VAT Calculator","url":"https://calcsnap.app/calculators/vat/uk/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"description":"Free UK VAT calculator. Add or remove 20%, 5%, or 0% VAT instantly."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>UK</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../uk/index.html" class="country-btn active">🇬🇧 UK</a>
+      <a href="../spain/index.html" class="country-btn">🇪🇸 Spain</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../italy/index.html" class="country-btn">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../portugal/index.html" class="country-btn">🇵🇹 Portugal</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇬🇧 Finance · United Kingdom</div>
+      <h1>UK VAT Calculator — Add or Remove VAT</h1>
+      <p>Calculate VAT for the United Kingdom at 20% (standard), 5% (reduced), or 0% (zero-rated). Get the net price, gross price, and VAT amount instantly.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setVatMode('add',this)">Add VAT (Net → Gross)</button>
+            <button class="cat-tab" onclick="setVatMode('remove',this)">Remove VAT (Gross → Net)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">UK VAT Rate</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="20" selected>20% — Standard Rate</option>
+              <option value="5">5% — Reduced Rate</option>
+              <option value="0">0% — Zero Rate</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Net price (excl. VAT)</label>
+            <div class="input-wrap has-prefix">
+              <span class="input-prefix">£</span>
+              <input type="number" id="vat-price" placeholder="e.g. 100.00" min="0" step="0.01" oninput="calcVAT()" />
+            </div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Gross price (incl. VAT)</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Net price</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">VAT amount</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Gross price</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>UK VAT Rates Explained</h2>
+            <p>The United Kingdom has three VAT rates set by HMRC. Most businesses with taxable turnover above £90,000 (2024/25 threshold) must register for VAT.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead>
+                  <tr style="background:var(--color-surface-offset);text-align:left;">
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Rate</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Category</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Examples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">20%</td><td style="padding:var(--space-3) var(--space-4);">Standard Rate</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Electronics, clothing, cars, most services</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">5%</td><td style="padding:var(--space-3) var(--space-4);">Reduced Rate</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Home energy, children's car seats, sanitary products</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">0%</td><td style="padding:var(--space-3) var(--space-4);">Zero Rate</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Most food, children's clothes, books, newspapers</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">Add VAT:    Gross = Net × (1 + VAT rate / 100)
+Remove VAT: Net   = Gross / (1 + VAT rate / 100)
+VAT amount: VAT   = Gross − Net</div>
+            <div class="example-box">
+              <div class="example-title">Example — Adding 20% VAT to £500 net</div>
+              <p>Gross = 500 × 1.20 = <strong>£600 gross</strong></p>
+              <p>VAT amount = 600 − 500 = <strong>£100</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">Example — Removing 20% VAT from £120 gross</div>
+              <p>Net = 120 / 1.20 = <strong>£100 net</strong></p>
+              <p>VAT = 120 − 100 = <strong>£20</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the UK VAT registration threshold?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">For the 2024/25 tax year, businesses must register for VAT when their taxable turnover exceeds £90,000 in a rolling 12-month period. Once registered, you must charge VAT on taxable sales and can reclaim VAT on purchases.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What's the difference between zero-rated and VAT-exempt?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Zero-rated supplies are taxable at 0% — businesses still charge VAT (at 0%) and can reclaim input VAT. Exempt supplies are outside the VAT system entirely — businesses cannot charge VAT and cannot reclaim input VAT on related costs. Examples of exempt supplies include insurance and financial services.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">How do I reclaim VAT as a UK business?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">VAT-registered businesses complete a VAT Return (usually quarterly) via HMRC's Making Tax Digital (MTD) system. If your input VAT (paid on purchases) exceeds your output VAT (charged to customers), HMRC will refund the difference.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Other Countries</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA France (20%)</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> MwSt Germany (19%)</a></li>
+            <li><a href="../spain/index.html"><span class="rel-icon">🇪🇸</span> IVA Spain (21%)</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> BTW Belgium (21%)</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Quick Reference</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>£100 + 20%</span><strong style="color:var(--color-text)">£120 gross</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>£100 + 5%</span><strong style="color:var(--color-text)">£105 gross</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>£120 ÷ 1.20</span><strong style="color:var(--color-text)">£100 net</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>£105 ÷ 1.05</span><strong style="color:var(--color-text)">£100 net</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../../salary/uk/index.html"><span class="rel-icon">💼</span> Salary Take-home UK</a></li>
+            <li><a href="../../percentage/"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../../discount/"><span class="rel-icon">🏷️</span> Discount Calculator</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode = 'add';
+  function setVatMode(mode, btn) {
+    vatMode = mode;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('vat-price-label').textContent = mode === 'add' ? 'Net price (excl. VAT)' : 'Gross price (incl. VAT)';
+    document.getElementById('result-label').textContent = mode === 'add' ? 'Gross price (incl. VAT)' : 'Net price (excl. VAT)';
+    calcVAT();
+  }
+  function fmt(n) { return '£' + n.toLocaleString('en-GB', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+  function calcVAT() {
+    const price = parseFloat(document.getElementById('vat-price').value);
+    const rate = parseFloat(document.getElementById('vat-rate').value);
+    if (isNaN(price) || price < 0) { document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; return; }
+    let ht, ttc, tva;
+    if (vatMode === 'add') { ht = price; ttc = price * (1 + rate/100); tva = ttc - ht; }
+    else { ttc = price; ht = price / (1 + rate/100); tva = ttc - ht; }
+    document.getElementById('vat-result').textContent = vatMode === 'add' ? fmt(ttc) : fmt(ht);
+    document.getElementById('vat-breakdown').style.display = '';
+    document.getElementById('bd-ht').textContent = fmt(ht);
+    document.getElementById('bd-tva').textContent = fmt(tva);
+    document.getElementById('bd-ttc').textContent = fmt(ttc);
+  }
+  function resetVAT() { document.getElementById('vat-price').value = ''; document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; }
+</script>
+</body>
+</html>
