@@ -1,1 +1,239 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"4428d319a6fa28ba47c97188385458673a955f1b"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculateur Salaire Net France — Brut en Net 2026 | CalcSnap</title>
+  <meta name="description" content="Calculateur salaire net France gratuit. Convertissez votre salaire brut en net pour salarié (cadre/non-cadre) et auto-entrepreneur. Estimation des charges sociales 2026." />
+  <meta property="og:title" content="Calculateur Salaire Net France 2026 — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/france/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Calculateur Salaire Net France","url":"https://calcsnap.app/calculators/salary/france/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Calculateur salaire brut en net pour salariés et auto-entrepreneurs en France."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>France</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn active">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇫🇷 Finance · France</div>
+      <h1>Calculateur Salaire Net France — Brut en Net</h1>
+      <p>Estimez votre salaire net à partir de votre brut. Valable pour les salariés (cadre et non-cadre) et les auto-entrepreneurs. Charges sociales 2026 incluses.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setMode('employee',this)">Salarié (Employé)</button>
+            <button class="cat-tab" onclick="setMode('freelance',this)">Auto-Entrepreneur</button>
+          </div>
+          <div id="emp-mode">
+            <div class="form-group">
+              <label for="gross-salary">Salaire brut mensuel</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="gross-salary" placeholder="ex. 3 000" min="0" step="1" oninput="calcEmployee()" /></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+              <div class="form-group">
+                <label for="emp-type">Contrat</label>
+                <select id="emp-type" onchange="calcEmployee()">
+                  <option value="cdi" selected>CDI</option>
+                  <option value="cdd">CDD</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="emp-cadre">Statut</label>
+                <select id="emp-cadre" onchange="calcEmployee()">
+                  <option value="non-cadre" selected>Non-cadre</option>
+                  <option value="cadre">Cadre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div id="freelance-mode" style="display:none;">
+            <div class="form-group">
+              <label for="ca-mensuel">Chiffre d'affaires mensuel</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="ca-mensuel" placeholder="ex. 5 000" min="0" step="1" oninput="calcFreelance()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="activity-type">Type d'activité</label>
+              <select id="activity-type" onchange="calcFreelance()">
+                <option value="services" selected>Prestations de services (BNC/BIC)</option>
+                <option value="bic">Vente de marchandises (BIC)</option>
+                <option value="liberal">Professions libérales (CIPAV)</option>
+              </select>
+            </div>
+          </div>
+          <div class="result-box" id="salary-result" style="display:none;">
+            <div class="result-label">Revenu net estimé (mensuel)</div>
+            <div class="result-value" id="net-result">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label" id="gross-label">Salaire brut</span><span class="value" id="bd-gross">—</span></div>
+              <div class="breakdown-row"><span class="label" id="charges-label">Charges sociales</span><span class="value" id="bd-charges" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Net avant impôt</span><span class="value" id="bd-net">—</span></div>
+              <div class="breakdown-row"><span class="label">Équivalent annuel</span><span class="value" id="bd-annual">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Estimation uniquement. Les retenues réelles dépendent de votre convention collective et de votre situation. L'impôt sur le revenu n'est pas inclus.</p>
+          <button class="btn-reset" onclick="resetSalary()">↺ Réinitialiser</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Comment fonctionnent les charges sociales en France ?</h2>
+            <p>En France, les cotisations salariales représentent environ 22 à 25% du salaire brut pour un non-cadre. Elles financent la retraite, la maladie, le chômage et la prévoyance.</p>
+            <div class="formula-box">Salaire net ≈ Brut × 0,775  (non-cadre, approximatif)
+Salaire net ≈ Brut × 0,765  (cadre, légèrement plus élevé)
+
+Principales retenues salariales :
+- CSG/CRDS :              ~9,2%
+- Assurance maladie :     ~0,75%
+- Retraite de base :      ~6,9%
+- Retraite complémentaire : ~3,15% (non-cadre) / ~5% (cadre)
+- Chômage :               ~0,4%
+Total charges salariales : ~22–25%</div>
+            <div class="example-box">
+              <div class="example-title">Exemple — 3 000 € brut / mois (non-cadre)</div>
+              <p>Charges ≈ 22% → 3 000 × 0,22 = <strong>660 €</strong> de retenues</p>
+              <p>Net avant IR ≈ 3 000 − 660 = <strong>2 340 € net</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">Auto-Entrepreneur 2026 — Prestations de services</div>
+              <p>Cotisations sociales : <strong>21,2%</strong> du CA</p>
+              <p>Net après charges : <strong>78,8%</strong> du CA</p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Questions fréquentes</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Quel est le SMIC net en 2026 ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Le SMIC brut mensuel est d'environ 1 800 € en janvier 2026 (35h/semaine). Après déduction des charges salariales (~22%), le net est d'environ 1 400 €/mois avant impôt sur le revenu. Vérifiez le montant exact sur service-public.fr.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Quelle différence entre cadre et non-cadre ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Le statut cadre entraîne des cotisations retraite complémentaire légèrement plus élevées (AGIRC-ARRCO), mais aussi de meilleures garanties en termes de retraite et d'indemnités chômage. Le taux global de retenue est légèrement supérieur (~23,5% contre ~22% pour un non-cadre).</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">L'impôt sur le revenu est-il inclus ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Non. Ce calculateur estime uniquement les charges sociales. L'IR est prélevé à la source mais son montant dépend de votre foyer fiscal, vos revenus totaux et vos déductions. Utilisez le simulateur officiel sur impots.gouv.fr pour un résultat précis.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Autres pays</h3>
+          <ul class="related-list">
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> Salaire Net UK</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> Nettolohn Deutschland</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> Salaire Net Belgique</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Taux sociaux 2026</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>CSG/CRDS</span><strong style="color:var(--color-text)">~9,2%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Maladie</span><strong style="color:var(--color-text)">~0,75%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Retraite de base</span><strong style="color:var(--color-text)">~6,9%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Chômage</span><strong style="color:var(--color-text)">~0,4%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>Total salarié</span><strong style="color:var(--color-primary)">~22%</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Calculatrices liées</h3>
+          <ul class="related-list">
+            <li><a href="../../vat/france/index.html"><span class="rel-icon">🇫🇷</span> TVA France</a></li>
+            <li><a href="../../compound-interest/"><span class="rel-icon">📈</span> Intérêts composés</a></li>
+            <li><a href="../../loan-payment/"><span class="rel-icon">🏦</span> Remboursement prêt</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">Toutes les calculatrices</a></p><p>Estimations uniquement. Consultez un expert-comptable.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let salaryMode = 'employee';
+  function setMode(m, btn) {
+    salaryMode = m;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('emp-mode').style.display = m === 'employee' ? '' : 'none';
+    document.getElementById('freelance-mode').style.display = m === 'freelance' ? '' : 'none';
+    document.getElementById('salary-result').style.display = 'none';
+  }
+  function fmt(n) { return Math.round(n).toLocaleString('fr-FR') + ' €'; }
+  function calcEmployee() {
+    const gross = parseFloat(document.getElementById('gross-salary').value);
+    if (isNaN(gross) || gross <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const cadre = document.getElementById('emp-cadre').value === 'cadre';
+    const rate = cadre ? 0.235 : 0.22;
+    const charges = gross * rate;
+    const net = gross - charges;
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('gross-label').textContent = 'Salaire brut mensuel';
+    document.getElementById('charges-label').textContent = 'Charges sociales (~' + Math.round(rate*100) + '%)';
+    document.getElementById('net-result').textContent = fmt(net);
+    document.getElementById('bd-gross').textContent = fmt(gross);
+    document.getElementById('bd-charges').textContent = '−' + fmt(charges);
+    document.getElementById('bd-net').textContent = fmt(net);
+    document.getElementById('bd-annual').textContent = fmt(net * 12) + '/an';
+  }
+  function calcFreelance() {
+    const ca = parseFloat(document.getElementById('ca-mensuel').value);
+    const type = document.getElementById('activity-type').value;
+    if (isNaN(ca) || ca <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const rates = { services: 0.212, bic: 0.128, liberal: 0.212 };
+    const rate = rates[type] || 0.212;
+    const charges = ca * rate;
+    const net = ca - charges;
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('gross-label').textContent = 'Chiffre d\'affaires mensuel';
+    document.getElementById('charges-label').textContent = 'Cotisations sociales (~' + Math.round(rate*100) + '%)';
+    document.getElementById('net-result').textContent = fmt(net);
+    document.getElementById('bd-gross').textContent = fmt(ca);
+    document.getElementById('bd-charges').textContent = '−' + fmt(charges);
+    document.getElementById('bd-net').textContent = fmt(net);
+    document.getElementById('bd-annual').textContent = fmt(net * 12) + '/an';
+  }
+  function resetSalary() {
+    ['gross-salary','ca-mensuel'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('salary-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>
