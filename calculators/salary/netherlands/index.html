@@ -1,1 +1,232 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"be3b355feae7c72e69d4f33ac5e2caef3ef3c652"}}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Netto Salaris Berekenen Nederland — Bruto naar Netto 2025 | CalcSnap</title>
+  <meta name="description" content="Gratis bruto netto salaris calculator Nederland 2025. Bereken uw loonheffing, heffingskorting en netto maandloon. Inclusief box 1 tarieven 2025." />
+  <meta property="og:title" content="Netto Salaris Calculator Nederland 2025 — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/netherlands/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);}
+    .country-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:2px solid var(--color-border);border-radius:var(--radius-full);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all 0.15s;font-family:var(--font-body);text-decoration:none;}
+    .country-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}
+    .country-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Netto Salaris Calculator Nederland","url":"https://calcsnap.app/calculators/salary/netherlands/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Bereken uw netto maandloon vanuit bruto salaris voor Nederland 2025."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>Nederland</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn active">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇳🇱 Finance · Nederland</div>
+      <h1>Netto Salaris Berekenen Nederland — Bruto naar Netto 2025</h1>
+      <p>Bereken uw netto maandloon op basis van uw bruto jaarsalaris of maandloon. Loonheffing box 1 en heffingskorting 2025 zijn inbegrepen.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="bruto-nl">Bruto maandloon</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="bruto-nl" placeholder="bijv. 3 500" min="0" step="100" oninput="calcNL()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="leeftijd-nl">Leeftijdsgroep</label>
+              <select id="leeftijd-nl" onchange="calcNL()">
+                <option value="under67" selected>Jonger dan 67 jaar</option>
+                <option value="over67">67 jaar of ouder</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="result-box" id="nl-result" style="display:none;">
+            <div class="result-label">Netto maandloon (schatting)</div>
+            <div class="result-value" id="nl-netto">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Bruto maandloon</span><span class="value" id="nl-bd-bruto">—</span></div>
+              <div class="breakdown-row"><span class="label">Loonheffing (box 1)</span><span class="value" id="nl-bd-heffing" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Heffingskorting</span><span class="value" id="nl-bd-korting" style="color:var(--color-success);">—</span></div>
+              <div class="breakdown-row" style="border-top:2px solid var(--color-border);padding-top:var(--space-3);margin-top:var(--space-2);"><span class="label"><strong>Netto per maand</strong></span><span class="value"><strong id="nl-bd-netto" style="color:var(--color-primary);">—</strong></span></div>
+              <div class="breakdown-row"><span class="label">Netto per jaar</span><span class="value" id="nl-bd-jaarnet">—</span></div>
+              <div class="breakdown-row"><span class="label">Effectief belastingtarief</span><span class="value" id="nl-bd-eff">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Schatting op basis van standaard loonheffingskorting. Arbeidskorting, zorgtoeslag en pensioenpremie zijn niet meegenomen. Raadpleeg de Belastingdienst voor exacte berekeningen.</p>
+          <button class="btn-reset" onclick="resetNL()">↺ Opnieuw</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Hoe werkt loonheffing in Nederland?</h2>
+            <p>Nederland hanteert twee tariefschijven in box 1 voor inkomsten uit werk en woning. Het laagste tarief (36,97%) geldt ook als premie volksverzekeringen (AOW, ANW, WLZ). Boven de grens van €75.624 geldt het toptarief van 49,5%. De heffingskorting verlaagt de te betalen belasting.</p>
+            <div class="formula-box">Box 1 tarieven 2025:
+  36,97%  op inkomen van €0 – €75.624
+  49,50%  op inkomen boven €75.624
+
+Heffingskortingen (schatting 2025):
+  Algemene heffingskorting:   max. ~€3.362
+  Arbeidskorting:             max. ~€5.053 (afhankelijk van inkomen)
+
+Netto ≈ Bruto − Loonheffing + Heffingskorting</div>
+            <div class="example-box">
+              <div class="example-title">Voorbeeld — €4.000 bruto per maand</div>
+              <p>Bruto jaarloon = €4.000 × 12 = <strong>€48.000</strong></p>
+              <p>Loonheffing (36,97%) = €48.000 × 0,3697 = <strong>€17.746</strong></p>
+              <p>Heffingskorting ≈ €3.362 + €3.500 (arbeidskorting) = <strong>€6.862</strong></p>
+              <p>Netto jaarinkomen ≈ €48.000 − €17.746 + €6.862 = <strong>~€37.116</strong> (≈ €3.093/maand)</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Veelgestelde vragen</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Wat is de heffingskorting?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">De heffingskorting is een korting op de te betalen inkomstenbelasting. De algemene heffingskorting bedraagt in 2025 maximaal ~€3.362 en wordt afgebouwd bij hogere inkomens. De arbeidskorting is een extra korting voor mensen met inkomen uit werk en kan oplopen tot ~€5.053. Beide kortingen verlagen uw feitelijke belastingdruk aanzienlijk.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Wat is het minimumloon in Nederland in 2025?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Het wettelijk minimumloon (WML) in Nederland bedraagt per 1 januari 2025 ongeveer €2.070 bruto per maand voor werknemers van 21 jaar en ouder (bij een 40-urige werkweek). Na loonheffing en heffingskortingen komt dit neer op circa €1.700–€1.800 netto per maand, afhankelijk van uw persoonlijke situatie.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Is de zorgtoeslag inbegrepen?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Nee. Zorgtoeslag is een aparte tegemoetkoming van de overheid voor de zorgverzekeringspremie en verschilt per inkomen en gezinssituatie. Voeg de zorgtoeslag toe aan uw berekend netto loon voor een volledig beeld. Check uw recht op zorgtoeslag via de Belastingdienst (belastingdienst.nl/toeslagen).</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Andere landen</h3>
+          <ul class="related-list">
+            <li><a href="../us/index.html"><span class="rel-icon">🇺🇸</span> Salary US</a></li>
+            <li><a href="../canada/index.html"><span class="rel-icon">🇨🇦</span> Salary Canada</a></li>
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> Salaire France</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> Gehalt Deutschland</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> Salaire Belgique</a></li>
+            <li><a href="../index.html"><span class="rel-icon">🌍</span> Alle landen</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Box 1 tarieven 2025</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>Schijf 1 (tot €75.624)</span><strong style="color:var(--color-text)">36,97%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Schijf 2 (boven €75.624)</span><strong style="color:var(--color-text)">49,50%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>Alg. heffingskorting</span><strong style="color:var(--color-primary)">~€3.362</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Gerelateerde calculators</h3>
+          <ul class="related-list">
+            <li><a href="../../vat/netherlands/index.html"><span class="rel-icon">🇳🇱</span> BTW Nederland</a></li>
+            <li><a href="../../compound-interest/index.html"><span class="rel-icon">📈</span> Samengestelde rente</a></li>
+            <li><a href="../../loan-payment/index.html"><span class="rel-icon">🏦</span> Lening berekenen</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">Alle calculators</a></p><p>Schattingen alleen. Raadpleeg de Belastingdienst of een belastingadviseur.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  function fmtEUR(n) { return '€' + Math.round(n).toLocaleString('nl-NL'); }
+
+  function calcNL() {
+    const brutoMaand = parseFloat(document.getElementById('bruto-nl').value);
+    if (isNaN(brutoMaand) || brutoMaand <= 0) { document.getElementById('nl-result').style.display = 'none'; return; }
+
+    const brutoJaar = brutoMaand * 12;
+    const ouder67 = document.getElementById('leeftijd-nl').value === 'over67';
+
+    // Box 1 tax calculation
+    let heffingJaar = 0;
+    if (!ouder67) {
+      // Under 67: full 36.97% rate in bracket 1, 49.5% in bracket 2
+      if (brutoJaar <= 75624) {
+        heffingJaar = brutoJaar * 0.3697;
+      } else {
+        heffingJaar = 75624 * 0.3697 + (brutoJaar - 75624) * 0.495;
+      }
+    } else {
+      // 67+: lower rate in bracket 1 (no AOW premium ~17.9%)
+      const rate1 = 0.1997; // 36.97% - 17.9% AOW
+      if (brutoJaar <= 75624) {
+        heffingJaar = brutoJaar * rate1;
+      } else {
+        heffingJaar = 75624 * rate1 + (brutoJaar - 75624) * 0.495;
+      }
+    }
+
+    // Algemene heffingskorting 2025 (simplified: max €3,362, phases out above ~€23,000)
+    let ahk = 3362;
+    if (brutoJaar > 23000) {
+      // Phase-out: roughly 6.63% of income above €23,000, max reduction
+      const phaseOut = Math.min(3362, (brutoJaar - 23000) * 0.0663);
+      ahk = Math.max(0, 3362 - phaseOut);
+    }
+
+    // Arbeidskorting (simplified: max €5,053 around €40k, phases out at higher incomes)
+    let ak = 0;
+    if (brutoJaar >= 10741) {
+      if (brutoJaar <= 24813) ak = (brutoJaar - 10741) * 0.0838;
+      else if (brutoJaar <= 39957) ak = 1179 + (brutoJaar - 24813) * 0.2613;
+      else if (brutoJaar <= 124935) ak = Math.min(5053, 5053 - (brutoJaar - 39957) * 0.0610);
+      else ak = 0;
+      ak = Math.max(0, ak);
+    }
+
+    const totalKorting = ahk + ak;
+    const nettoHeffingJaar = Math.max(0, heffingJaar - totalKorting);
+    const nettoJaar = brutoJaar - nettoHeffingJaar;
+    const nettoMaand = nettoJaar / 12;
+    const effRate = ((nettoHeffingJaar / brutoJaar) * 100).toFixed(1);
+
+    document.getElementById('nl-result').style.display = '';
+    document.getElementById('nl-netto').textContent = fmtEUR(nettoMaand);
+    document.getElementById('nl-bd-bruto').textContent = fmtEUR(brutoMaand);
+    document.getElementById('nl-bd-heffing').textContent = '−' + fmtEUR(heffingJaar / 12);
+    document.getElementById('nl-bd-korting').textContent = '+' + fmtEUR(totalKorting / 12);
+    document.getElementById('nl-bd-netto').textContent = fmtEUR(nettoMaand);
+    document.getElementById('nl-bd-jaarnet').textContent = fmtEUR(nettoJaar) + '/jaar';
+    document.getElementById('nl-bd-eff').textContent = effRate + '%';
+  }
+
+  function resetNL() {
+    document.getElementById('bruto-nl').value = '';
+    document.getElementById('nl-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>
