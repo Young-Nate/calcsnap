@@ -1,1 +1,151 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"e1c4e22ed4d14d5a010e2c7d8303325e120651b8"}}
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calcolo IVA Italia — Calcolatore IVA 22% 10% 5% 4% | CalcSnap</title>
+  <meta name="description" content="Calcolatore IVA Italia gratuito. Aggiungi o scorporo l'IVA ai tassi del 22%, 10%, 5% e 4%. Calcolo imponibile e totale IVA inclusa istantaneo." />
+  <meta property="og:title" content="Calcolatore IVA Italia (imponibile/IVA inclusa) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/italy/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);}
+    .country-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:2px solid var(--color-border);border-radius:var(--radius-full);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all 0.15s;font-family:var(--font-body);text-decoration:none;}
+    .country-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}
+    .country-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>Italy</span></nav>
+    <div class="country-switcher">
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../spain/index.html" class="country-btn">🇪🇸 Spain</a>
+      <a href="../italy/index.html" class="country-btn active">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../index.html" class="country-btn">More →</a>
+    </div>
+    <div class="calc-header">
+      <div class="calc-tag">🇮🇹 Finance · Italia</div>
+      <h1>Calcolatore IVA Italia — 22%, 10%, 5%, 4%</h1>
+      <p>Aggiungi o scorporo l'IVA italiana a qualsiasi prezzo. Tutti i tassi: 22% (ordinario), 10% (ridotto), 5% (ridotto speciale), 4% (super-ridotto).</p>
+    </div>
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setMode('add',this)">Aggiungi IVA (imponibile → totale)</button>
+            <button class="cat-tab" onclick="setMode('remove',this)">Scorporo IVA (totale → imponibile)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">Aliquota IVA</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="22" selected>22% — Aliquota ordinaria</option>
+              <option value="10">10% — Aliquota ridotta</option>
+              <option value="5">5% — Aliquota ridotta speciale</option>
+              <option value="4">4% — Aliquota super-ridotta</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Prezzo imponibile (senza IVA)</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="vat-price" placeholder="es. 100,00" min="0" step="0.01" oninput="calcVAT()" /></div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Prezzo IVA inclusa</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Imponibile</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">IVA</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Totale IVA inclusa</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Azzera</button>
+        </div>
+        <article>
+          <div class="content-section">
+            <h2>Aliquote IVA in Italia</h2>
+            <p>L'Italia prevede quattro aliquote IVA. L'aliquota ordinaria del 22% si applica alla maggior parte di beni e servizi. Le aliquote ridotte riguardano beni di prima necessità, prodotti alimentari e servizi specifici.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead><tr style="background:var(--color-surface-offset);text-align:left;"><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Aliquota</th><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Categoria</th><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Esempi</th></tr></thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">22%</td><td style="padding:var(--space-3) var(--space-4);">Ordinaria</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Elettronica, abbigliamento, auto, servizi</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">10%</td><td style="padding:var(--space-3) var(--space-4);">Ridotta</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Alimentari lavorati, ristoranti, farmaci, hotel</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">5%</td><td style="padding:var(--space-3) var(--space-4);">Ridotta speciale</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Pellet, legna da ardere, servizi socio-sanitari</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">4%</td><td style="padding:var(--space-3) var(--space-4);">Super-ridotta</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Alimenti base, libri, giornali, abitazioni</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">Aggiungere IVA:  Totale = Imponibile × (1 + aliquota / 100)
+Scorporo IVA:    Imponibile = Totale / (1 + aliquota / 100)
+Importo IVA:     IVA = Totale − Imponibile</div>
+            <div class="example-box">
+              <div class="example-title">Esempio — Aggiungere 22% IVA a 500 € imponibile</div>
+              <p>Totale = 500 × 1,22 = <strong>610 € IVA inclusa</strong></p>
+              <p>IVA = 610 − 500 = <strong>110 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Domande frequenti</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Qual è la soglia di registrazione IVA in Italia?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">In Italia, chiunque eserciti un'attività economica deve aprire la partita IVA indipendentemente dal fatturato. Non esiste una soglia minima come in altri paesi. Tuttavia, i contribuenti in regime forfettario (fino a 85.000 € di ricavi) non applicano l'IVA sulle fatture.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Cos'è lo scorporo IVA?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Lo scorporo IVA è il calcolo che permette di ricavare l'imponibile (prezzo senza IVA) da un prezzo già IVA inclusa. Formula: Imponibile = Totale ÷ (1 + aliquota/100). Esempio: 122 € ÷ 1,22 = 100 € imponibile.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Quali beni alimentari hanno l'IVA al 4%?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">L'aliquota del 4% si applica a pane, pasta, riso, latte, burro, formaggi, uova, frutta e verdura fresca, carni, pesci freschi e congelati. Anche i libri cartacei (non ebook), i giornali e l'abitazione principale rientrano in questa aliquota.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Altri paesi</h3>
+          <ul class="related-list">
+            <li><a href="../spain/index.html"><span class="rel-icon">🇪🇸</span> IVA Spagna (21%)</a></li>
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA Francia (20%)</a></li>
+            <li><a href="../portugal/index.html"><span class="rel-icon">🇵🇹</span> IVA Portogallo (23%)</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> MwSt Germania (19%)</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Riferimento rapido</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 22%</span><strong style="color:var(--color-text)">122 € IVA incl.</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 10%</span><strong style="color:var(--color-text)">110 € IVA incl.</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>122 € ÷ 1,22</span><strong style="color:var(--color-text)">100 € imponibile</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Risultati a solo scopo informativo.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode='add';
+  function setMode(m,btn){vatMode=m;document.querySelectorAll('.tool-card .cat-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('vat-price-label').textContent=m==='add'?'Prezzo imponibile (senza IVA)':'Prezzo IVA inclusa';document.getElementById('result-label').textContent=m==='add'?'Prezzo IVA inclusa':'Prezzo imponibile (senza IVA)';calcVAT();}
+  function fmt(n){return n.toLocaleString('it-IT',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+  function calcVAT(){const p=parseFloat(document.getElementById('vat-price').value),r=parseFloat(document.getElementById('vat-rate').value);if(isNaN(p)||p<0){document.getElementById('vat-result').textContent='—';document.getElementById('vat-breakdown').style.display='none';return;}let ht,ttc,tva;if(vatMode==='add'){ht=p;ttc=p*(1+r/100);tva=ttc-ht;}else{ttc=p;ht=p/(1+r/100);tva=ttc-ht;}document.getElementById('vat-result').textContent=vatMode==='add'?fmt(ttc):fmt(ht);document.getElementById('vat-breakdown').style.display='';document.getElementById('bd-ht').textContent=fmt(ht);document.getElementById('bd-tva').textContent=fmt(tva);document.getElementById('bd-ttc').textContent=fmt(ttc);}
+  function resetVAT(){document.getElementById('vat-price').value='';document.getElementById('vat-result').textContent='—';document.getElementById('vat-breakdown').style.display='none';}
+</script>
+</body>
+</html>
