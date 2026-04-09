@@ -1,1 +1,121 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"b9780ceb51b582b2e6ed380475257f7e0f8f7621"}}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BTW Berekenen Nederland — BTW Calculator 21% 9% | CalcSnap</title>
+  <meta name="description" content="Gratis BTW calculator Nederland. Bereken BTW bij 21% (hoog tarief) of 9% (laag tarief). Bedrag excl. BTW en incl. BTW direct berekend." />
+  <meta property="og:title" content="BTW Calculator Nederland (excl./incl.) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/netherlands/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>.country-switcher{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);}.country-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:2px solid var(--color-border);border-radius:var(--radius-full);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all 0.15s;font-family:var(--font-body);text-decoration:none;}.country-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}.country-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}</style>
+</head>
+<body>
+<header class="site-header"><div class="container container--wide"><a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a><nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav><div class="header-actions"></div></div></header>
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>Netherlands</span></nav>
+    <div class="country-switcher">
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn active">🇳🇱 Netherlands</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../index.html" class="country-btn">More →</a>
+    </div>
+    <div class="calc-header">
+      <div class="calc-tag">🇳🇱 Finance · Nederland</div>
+      <h1>BTW Calculator Nederland — 21% en 9%</h1>
+      <p>Bereken BTW (Belasting over Toegevoegde Waarde) bij 21% (hoog tarief) of 9% (laag tarief). Bedrag excl. BTW en incl. BTW direct berekend — geen login vereist.</p>
+    </div>
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setMode('add',this)">BTW oprekenen (excl. → incl.)</button>
+            <button class="cat-tab" onclick="setMode('remove',this)">BTW terugrekenen (incl. → excl.)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">BTW-tarief</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="21" selected>21% — Hoog tarief</option>
+              <option value="9">9% — Laag tarief</option>
+              <option value="0">0% — Nultarief</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Bedrag excl. BTW</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="vat-price" placeholder="bijv. 100,00" min="0" step="0.01" oninput="calcVAT()" /></div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Bedrag incl. BTW</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Excl. BTW</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">BTW-bedrag</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Incl. BTW</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Wissen</button>
+        </div>
+        <article>
+          <div class="content-section">
+            <h2>BTW-tarieven in Nederland</h2>
+            <p>Nederland kent drie BTW-tarieven. Het hoge tarief van 21% geldt voor de meeste goederen en diensten. Het lage tarief van 9% geldt voor levensmiddelen, geneesmiddelen en andere basisbehoefte producten.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead><tr style="background:var(--color-surface-offset);text-align:left;"><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Tarief</th><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Categorie</th><th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Voorbeelden</th></tr></thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">21%</td><td style="padding:var(--space-3) var(--space-4);">Hoog tarief</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Elektronica, kleding, auto's, diensten</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">9%</td><td style="padding:var(--space-3) var(--space-4);">Laag tarief</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Voedsel, medicijnen, boeken, kunst, logies</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">0%</td><td style="padding:var(--space-3) var(--space-4);">Nultarief</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Export, internationaal transport</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">BTW oprekenen:    Incl. = Excl. × (1 + tarief / 100)
+BTW terugrekenen: Excl. = Incl. / (1 + tarief / 100)
+BTW-bedrag:       BTW  = Incl. − Excl.</div>
+            <div class="example-box">
+              <div class="example-title">Voorbeeld — 21% BTW over € 500 excl.</div>
+              <p>Incl. = 500 × 1,21 = <strong>€ 605 incl. BTW</strong></p>
+              <p>BTW = 605 − 500 = <strong>€ 105</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Veelgestelde vragen</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Wat is de KOR (kleineondernemersregeling)?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Ondernemers met een jaaromzet onder € 20.000 (2024) kunnen gebruik maken van de KOR. Ze hoeven dan geen BTW te berekenen, in rekening te brengen of aan te geven, maar kunnen ook geen BTW terugvragen over zakelijke kosten.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Welk BTW-tarief geldt voor horeca?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Eten en drinken in de horeca valt onder het hoge tarief van 21% (als dienst). Afhaalmaaltijden (voedsel) vallen onder het lage tarief van 9%. Let op: alcohol valt altijd onder het hoge tarief van 21%.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Hoe vaak moet ik BTW-aangifte doen?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">De meeste ondernemers doen kwartaalaangifte via de Belastingdienst. Bij een hoge omzet kan maandaangifte verplicht zijn. Kleine ondernemers kunnen jaaraangifte doen als ze dat met de Belastingdienst afspreken.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <aside>
+        <div class="sidebar-widget"><h3>Andere landen</h3><ul class="related-list"><li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> MwSt Duitsland (19%)</a></li><li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> BTW België (21%)</a></li><li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA Frankrijk (20%)</a></li></ul></div>
+        <div class="sidebar-widget"><h3>Snelle referentie</h3><div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;"><div style="display:flex;justify-content:space-between;"><span>€ 100 + 21%</span><strong style="color:var(--color-text)">€ 121 incl.</strong></div><div style="display:flex;justify-content:space-between;"><span>€ 100 + 9%</span><strong style="color:var(--color-text)">€ 109 incl.</strong></div><div style="display:flex;justify-content:space-between;"><span>€ 121 ÷ 1,21</span><strong style="color:var(--color-text)">€ 100 excl.</strong></div></div></div>
+      </aside>
+    </div>
+  </div>
+</main>
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Uitsluitend ter informatie.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode='add';
+  function setMode(m,btn){vatMode=m;document.querySelectorAll('.tool-card .cat-tab').forEach(t=>t.classList.remove('active'));btn.classList.add('active');document.getElementById('vat-price-label').textContent=m==='add'?'Bedrag excl. BTW':'Bedrag incl. BTW';document.getElementById('result-label').textContent=m==='add'?'Bedrag incl. BTW':'Bedrag excl. BTW';calcVAT();}
+  function fmt(n){return n.toLocaleString('nl-NL',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+  function calcVAT(){const p=parseFloat(document.getElementById('vat-price').value),r=parseFloat(document.getElementById('vat-rate').value);if(isNaN(p)||p<0){document.getElementById('vat-result').textContent='—';document.getElementById('vat-breakdown').style.display='none';return;}let ht,ttc,tva;if(vatMode==='add'){ht=p;ttc=p*(1+r/100);tva=ttc-ht;}else{ttc=p;ht=p/(1+r/100);tva=ttc-ht;}document.getElementById('vat-result').textContent=vatMode==='add'?fmt(ttc):fmt(ht);document.getElementById('vat-breakdown').style.display='';document.getElementById('bd-ht').textContent=fmt(ht);document.getElementById('bd-tva').textContent=fmt(tva);document.getElementById('bd-ttc').textContent=fmt(ttc);}
+  function resetVAT(){document.getElementById('vat-price').value='';document.getElementById('vat-result').textContent='—';document.getElementById('vat-breakdown').style.display='none';}
+</script>
+</body>
+</html>
