@@ -1,1 +1,195 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"434f0e0c4f38710a31637f4545bd13ae8c392091"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculateur Salaire Net Belgique 2026 — Brut en Net | CalcSnap</title>
+  <meta name="description" content="Calculateur salaire net Belgique gratuit. Estimez votre salaire net à partir du brut — cotisations ONSS et précompte professionnel inclus. Résultat instantané." />
+  <meta property="og:title" content="Calculateur Salaire Net Belgique 2026 — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/belgium/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>Belgium</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn active">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇧🇪 Finance · Belgique / België</div>
+      <h1>Calculateur Salaire Net Belgique — Brut en Net</h1>
+      <p>Estimez votre salaire net à partir de votre brut en Belgique. Inclut les cotisations ONSS (13,07%) et une estimation du précompte professionnel 2026.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="gross-monthly">Salaire brut mensuel</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="gross-monthly" placeholder="ex. 3 500" min="0" step="50" oninput="calcBE()" /></div>
+          </div>
+          <div class="form-group">
+            <label for="situation">Situation familiale</label>
+            <select id="situation" onchange="calcBE()">
+              <option value="isolee" selected>Isolé(e)</option>
+              <option value="marie">Marié(e) / Cohabitant(e) — partenaire sans revenus</option>
+              <option value="marie2">Marié(e) / Cohabitant(e) — deux revenus</option>
+            </select>
+          </div>
+
+          <div class="result-box" id="salary-result" style="display:none;">
+            <div class="result-label">Salaire net estimé (mensuel)</div>
+            <div class="result-value" id="net-result">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Salaire brut</span><span class="value" id="bd-gross">—</span></div>
+              <div class="breakdown-row"><span class="label">Cotisations ONSS (13,07%)</span><span class="value" id="bd-onss" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Précompte professionnel (est.)</span><span class="value" id="bd-pp" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Salaire net</span><span class="value" id="bd-net">—</span></div>
+              <div class="breakdown-row"><span class="label">Équivalent annuel</span><span class="value" id="bd-annual">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Estimation uniquement. Le précompte professionnel réel dépend de votre barème fiscal, charges de famille et avantages extra-légaux. Consultez votre secrétariat social.</p>
+          <button class="btn-reset" onclick="resetSalary()">↺ Réinitialiser</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Comment fonctionne le salaire en Belgique ?</h2>
+            <p>En Belgique, le passage du brut au net se fait en deux étapes principales : d'abord les cotisations ONSS (sécurité sociale), puis le précompte professionnel (impôt retenu à la source).</p>
+            <div class="formula-box">Étape 1 — Cotisations ONSS (sécurité sociale) :
+  Brut imposable = Brut × (1 − 13,07%)
+
+Étape 2 — Précompte professionnel :
+  Appliqué sur le brut imposable selon barème progressif
+  Taux effectif : ~20–30% pour la plupart des salariés
+
+Net ≈ Brut × (1 − 13,07%) × (1 − taux_précompte)</div>
+            <div class="example-box">
+              <div class="example-title">Exemple — 3 500 € brut / mois (isolé)</div>
+              <p>Après ONSS : 3 500 × 0,8693 = <strong>3 042,55 €</strong> (brut imposable)</p>
+              <p>Précompte (≈22%) : 3 042,55 × 0,22 = <strong>669,36 €</strong></p>
+              <p>Net estimé ≈ 3 042,55 − 669,36 = <strong>~2 373 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Questions fréquentes</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Quel est le salaire minimum en Belgique en 2026 ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Le RMMMG (Revenu Minimum Mensuel Moyen Garanti) est d'environ 2 070 € brut/mois au 1er janvier 2025 pour les travailleurs à temps plein. Après cotisations ONSS et précompte, le net est d'environ 1 600 € pour un isolé.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Que sont les avantages extra-légaux (AEL) ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Les AEL (chèques-repas, voiture de société, assurance groupe, chèques-cadeaux, éco-chèques) sont des avantages accordés en plus du salaire brut, souvent avec un traitement fiscal avantageux. Ils ne sont pas inclus dans ce calculateur mais peuvent représenter plusieurs centaines d'euros par mois.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Pourquoi la Belgique a-t-elle une pression fiscale élevée ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">La Belgique combine des cotisations sociales élevées (ONSS employé 13,07% + employeur ~27%) et un impôt progressif avec un taux marginal de 50% dès 46 440 €/an. En contrepartie, le système offre une couverture sociale étendue : soins de santé, allocations familiales, pensions et chômage.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Autres pays</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> Salaire Net France</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> Take-home Pay UK</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> Nettolohn Allemagne</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Cotisations 2026</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>ONSS salarié</span><strong style="color:var(--color-text)">13,07%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>ONSS employeur</span><strong style="color:var(--color-text)">~27%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Précompte (taux effectif)</span><strong style="color:var(--color-text)">~20–30%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>Net/Brut estimé</span><strong style="color:var(--color-primary)">~58–62%</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Calculatrices liées</h3>
+          <ul class="related-list">
+            <li><a href="../../vat/belgium/index.html"><span class="rel-icon">🇧🇪</span> TVA Belgique</a></li>
+            <li><a href="../../loan-payment/"><span class="rel-icon">🏦</span> Remboursement prêt</a></li>
+            <li><a href="../../compound-interest/"><span class="rel-icon">📈</span> Intérêts composés</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Estimations uniquement. Consultez votre secrétariat social.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  function fmtEUR(n) { return Math.round(n).toLocaleString('fr-BE') + ' €'; }
+
+  function calcBE() {
+    const gross = parseFloat(document.getElementById('gross-monthly').value);
+    const situation = document.getElementById('situation').value;
+    if (isNaN(gross) || gross <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+
+    // Step 1: ONSS (employee social security) - fixed 13.07%
+    const onss = gross * 0.1307;
+    const taxable = gross - onss;
+
+    // Step 2: Précompte professionnel - simplified estimation
+    // Annual taxable equivalent
+    const annualTaxable = taxable * 12;
+    let ppRate;
+    if (situation === 'marie') {
+      // Partner without income — lower rate
+      ppRate = annualTaxable <= 15000 ? 0 : annualTaxable <= 26000 ? 0.12 : annualTaxable <= 46440 ? 0.20 : 0.28;
+    } else if (situation === 'marie2') {
+      // Both earners — similar to isolé
+      ppRate = annualTaxable <= 15000 ? 0 : annualTaxable <= 26000 ? 0.18 : annualTaxable <= 46440 ? 0.25 : 0.35;
+    } else {
+      // Isolé
+      ppRate = annualTaxable <= 15000 ? 0.05 : annualTaxable <= 26000 ? 0.22 : annualTaxable <= 46440 ? 0.28 : 0.40;
+    }
+
+    const pp = taxable * ppRate;
+    const net = taxable - pp;
+
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('net-result').textContent = fmtEUR(net);
+    document.getElementById('bd-gross').textContent = fmtEUR(gross);
+    document.getElementById('bd-onss').textContent = '−' + fmtEUR(onss);
+    document.getElementById('bd-pp').textContent = '−' + fmtEUR(pp);
+    document.getElementById('bd-net').textContent = fmtEUR(net);
+    document.getElementById('bd-annual').textContent = fmtEUR(net * 12) + '/an';
+  }
+
+  function resetSalary() { document.getElementById('gross-monthly').value = ''; document.getElementById('salary-result').style.display = 'none'; }
+</script>
+</body>
+</html>
