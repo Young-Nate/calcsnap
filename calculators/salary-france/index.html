@@ -1,1 +1,232 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"00bc2cf6d793aada3b8d7a00dcfa4b68cf0609c2"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salary Net Calculator France — Gross to Net | CalcSnap</title>
+  <meta name="description" content="Calculate your net salary in France from your gross salary. Estimates social contributions (charges sociales) for employees and freelancers. Free, instant." />
+  <meta property="og:title" content="Salary Net Calculator France — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary-france/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#finance">Finance</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Salary Net Calculator France</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">💼 Finance · France</div>
+      <h1>Salary Net Calculator France</h1>
+      <p>Estimate your net (take-home) salary from your gross salary in France. Includes salaried employee deductions and self-employed (micro-entrepreneur) estimates.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setMode('employee',this)">Salarié (Employee)</button>
+            <button class="cat-tab" onclick="setMode('freelance',this)">Auto-Entrepreneur</button>
+          </div>
+
+          <!-- Employee mode -->
+          <div id="emp-mode">
+            <div class="form-group">
+              <label for="gross-salary">Gross Monthly Salary (Salaire Brut)</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="gross-salary" placeholder="e.g. 3000" min="0" step="1" oninput="calcEmployee()" /></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+              <div class="form-group">
+                <label for="emp-type">Contract type</label>
+                <select id="emp-type" onchange="calcEmployee()">
+                  <option value="cdi" selected>CDI (Permanent)</option>
+                  <option value="cdd">CDD (Fixed-term)</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="emp-cadre">Category</label>
+                <select id="emp-cadre" onchange="calcEmployee()">
+                  <option value="non-cadre" selected>Non-cadre</option>
+                  <option value="cadre">Cadre</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Freelance mode -->
+          <div id="freelance-mode" style="display:none;">
+            <div class="form-group">
+              <label for="ca-mensuel">Monthly Revenue (CA Mensuel)</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="ca-mensuel" placeholder="e.g. 5000" min="0" step="1" oninput="calcFreelance()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="activity-type">Activity type</label>
+              <select id="activity-type" onchange="calcFreelance()">
+                <option value="services" selected>Prestations de services (Services)</option>
+                <option value="bic">Vente de marchandises (BIC)</option>
+                <option value="liberal">Professions libérales (CIPAV)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="result-box" id="salary-result" style="display:none;">
+            <div class="result-label">Estimated Net Income</div>
+            <div class="result-value" id="net-result">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label" id="gross-label">Gross salary</span><span class="value" id="bd-gross">—</span></div>
+              <div class="breakdown-row"><span class="label" id="charges-label">Social charges (~22%)</span><span class="value" id="bd-charges" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Net before income tax</span><span class="value" id="bd-net">—</span></div>
+              <div class="breakdown-row"><span class="label">Annual equivalent</span><span class="value" id="bd-annual">—</span></div>
+            </div>
+          </div>
+
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Estimated values only. Actual deductions depend on your specific situation, collective agreement, and 2026 rates. Consult a comptable for accurate figures.</p>
+          <button class="btn-reset" onclick="resetSalary()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How French Salary Deductions Work</h2>
+            <p>In France, the difference between gross (brut) and net salary can be significant. Employees typically see deductions of around 22-25% for social contributions (cotisations sociales), which fund healthcare, retirement, unemployment insurance, and other social programs.</p>
+
+            <div class="formula-box">Net Salary ≈ Gross × 0.775  (non-cadre, approximate)
+Net Salary ≈ Gross × 0.765  (cadre, slightly more deducted)
+
+Common deductions from gross:
+- CSG/CRDS:            ~9.2%
+- Assurance maladie:   ~0.75%
+- Retraite de base:    ~6.9%
+- Retraite complémentaire: ~3.15% (non-cadre) / ~5% (cadre)
+- Chômage:             ~0.4%
+Total employee charges: ~22-25%</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — €2,500 gross / month (non-cadre)</div>
+              <p>Social charges ≈ 22% → €2,500 × 0.22 = <strong>€550</strong> deducted</p>
+              <p>Net salary ≈ €2,500 − €550 = <strong>€1,950 net</strong></p>
+              <p>Note: income tax (impôt sur le revenu) is collected separately via prélèvement à la source.</p>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">Auto-Entrepreneur rates 2026 (prestations de services)</div>
+              <p>Cotisations sociales: <strong>21.2%</strong> of revenue</p>
+              <p>Optional versement libératoire (if eligible): <strong>2.2%</strong> of revenue for income tax</p>
+              <p>Net after social charges only: <strong>78.8%</strong> of revenue</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the SMIC (minimum wage) in France in 2026?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The French SMIC (Salaire Minimum Interprofessionnel de Croissance) is reviewed annually. As of January 2026, the gross SMIC is approximately €1,800/month (35h/week). Net after deductions is approximately €1,400/month. Always verify the current rate on the official government website.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What is the difference between cadre and non-cadre in France?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Cadre (executive/manager) status comes with slightly different social contribution rates, higher retirement contributions (AGIRC), and different rights. Cadres typically have a higher gross-to-net ratio due to slightly higher deductions, but also benefit from better retirement plans and unemployment benefits.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Is income tax (IR) included in this calculator?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">No. This calculator estimates social charges (cotisations sociales) only. Income tax (impôt sur le revenu) is collected separately via prélèvement à la source and depends on your full household income, family situation, and deductions. Use the official tax simulator at impots.gouv.fr for a complete picture.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France (TVA)</a></li>
+            <li><a href="../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+            <li><a href="../loan-payment/index.html"><span class="rel-icon">🏦</span> Loan Payment</a></li>
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Social Rates 2026</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>CSG/CRDS</span><strong style="color:var(--color-text)">~9.2%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Maladie</span><strong style="color:var(--color-text)">~0.75%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Retraite</span><strong style="color:var(--color-text)">~6.9%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Chômage</span><strong style="color:var(--color-text)">~0.4%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>Total employee</span><strong style="color:var(--color-primary)">~22%</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Estimates only. Consult a comptable for exact figures.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  let salaryMode = 'employee';
+
+  function setMode(m, btn) {
+    salaryMode = m;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('emp-mode').style.display = m === 'employee' ? '' : 'none';
+    document.getElementById('freelance-mode').style.display = m === 'freelance' ? '' : 'none';
+    document.getElementById('salary-result').style.display = 'none';
+  }
+
+  function fmt(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+
+  function calcEmployee() {
+    const gross = parseFloat(document.getElementById('gross-salary').value);
+    if (isNaN(gross) || gross <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const cadre = document.getElementById('emp-cadre').value === 'cadre';
+    const rate = cadre ? 0.235 : 0.22; // approximate total employee deductions
+    const charges = gross * rate;
+    const net = gross - charges;
+
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('gross-label').textContent = 'Gross salary (brut)';
+    document.getElementById('charges-label').textContent = 'Social charges (~' + Math.round(rate*100) + '%)';
+    document.getElementById('net-result').textContent = fmt(net);
+    document.getElementById('bd-gross').textContent = fmt(gross);
+    document.getElementById('bd-charges').textContent = '−' + fmt(charges);
+    document.getElementById('bd-net').textContent = fmt(net);
+    document.getElementById('bd-annual').textContent = fmt(net * 12) + '/year';
+  }
+
+  function calcFreelance() {
+    const ca = parseFloat(document.getElementById('ca-mensuel').value);
+    const type = document.getElementById('activity-type').value;
+    if (isNaN(ca) || ca <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const rates = { services: 0.212, bic: 0.128, liberal: 0.212 };
+    const rate = rates[type] || 0.212;
+    const charges = ca * rate;
+    const net = ca - charges;
+
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('gross-label').textContent = 'Monthly revenue (CA)';
+    document.getElementById('charges-label').textContent = 'Cotisations sociales (~' + Math.round(rate*100) + '%)';
+    document.getElementById('net-result').textContent = fmt(net);
+    document.getElementById('bd-gross').textContent = fmt(ca);
+    document.getElementById('bd-charges').textContent = '−' + fmt(charges);
+    document.getElementById('bd-net').textContent = fmt(net);
+    document.getElementById('bd-annual').textContent = fmt(net * 12) + '/year';
+  }
+
+  function resetSalary() {
+    ['gross-salary','ca-mensuel'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+    document.getElementById('salary-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>
