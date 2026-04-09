@@ -1,1 +1,209 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"f12e8a33ac170917cb4b952fca91c131ab5c8116"}}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculatrice TVA France — Calcul HT/TTC 20% 10% 5.5% | CalcSnap</title>
+  <meta name="description" content="Calculatrice TVA France gratuite. Ajoutez ou retirez la TVA aux taux de 20%, 10%, 5.5% et 2.1%. Calcul HT/TTC instantané." />
+  <meta property="og:title" content="Calculatrice TVA France (HT/TTC) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/france/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Calculatrice TVA France","url":"https://calcsnap.app/calculators/vat/france/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Calculatrice TVA France gratuite. Ajoutez ou retirez la TVA aux taux de 20%, 10%, 5.5% et 2.1%."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>France</span></nav>
+
+    <!-- Country switcher -->
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn active">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../spain/index.html" class="country-btn">🇪🇸 Spain</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../italy/index.html" class="country-btn">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../portugal/index.html" class="country-btn">🇵🇹 Portugal</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇫🇷 Finance · France</div>
+      <h1>Calculatrice TVA France (HT / TTC)</h1>
+      <p>Ajoutez ou retirez la TVA française en un clic. Tous les taux : 20% (normal), 10% (intermédiaire), 5.5% (réduit), 2.1% (super-réduit).</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setVatMode('add',this)">Ajouter TVA (HT → TTC)</button>
+            <button class="cat-tab" onclick="setVatMode('remove',this)">Retirer TVA (TTC → HT)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">Taux de TVA</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="20" selected>20% — Taux normal</option>
+              <option value="10">10% — Taux intermédiaire</option>
+              <option value="5.5">5.5% — Taux réduit</option>
+              <option value="2.1">2.1% — Taux super-réduit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Prix HT (hors taxes)</label>
+            <div class="input-wrap has-prefix">
+              <span class="input-prefix">€</span>
+              <input type="number" id="vat-price" placeholder="ex. 100.00" min="0" step="0.01" oninput="calcVAT()" />
+            </div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Prix TTC (toutes taxes comprises)</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Prix HT</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">Montant TVA</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Prix TTC</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Réinitialiser</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Taux de TVA en France — Guide complet</h2>
+            <p>La TVA (Taxe sur la Valeur Ajoutée) en France comprend quatre taux selon la nature des biens et services.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead>
+                  <tr style="background:var(--color-surface-offset);text-align:left;">
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Taux</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Catégorie</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Exemples</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">20%</td><td style="padding:var(--space-3) var(--space-4);">Taux normal</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Électronique, vêtements, voitures, services</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">10%</td><td style="padding:var(--space-3) var(--space-4);">Taux intermédiaire</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Restauration, produits agricoles, travaux de rénovation</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">5.5%</td><td style="padding:var(--space-3) var(--space-4);">Taux réduit</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Alimentation, livres, énergie</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">2.1%</td><td style="padding:var(--space-3) var(--space-4);">Taux super-réduit</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Presse, médicaments remboursables, redevance TV</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">Ajouter TVA :  TTC = HT × (1 + taux / 100)
+Retirer TVA :  HT  = TTC / (1 + taux / 100)
+Montant TVA :  TVA = TTC − HT</div>
+            <div class="example-box">
+              <div class="example-title">Exemple — Ajouter 20% TVA à 500 € HT</div>
+              <p>TTC = 500 × 1,20 = <strong>600 € TTC</strong></p>
+              <p>Montant TVA = 600 − 500 = <strong>100 €</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">Exemple — Retrouver le HT depuis 120 € TTC</div>
+              <p>HT = 120 / 1,20 = <strong>100 € HT</strong></p>
+              <p>Montant TVA = 120 − 100 = <strong>20 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Questions fréquentes</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Quelle est la différence entre HT et TTC ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">HT (Hors Taxes) est le prix avant taxes. TTC (Toutes Taxes Comprises) est le prix final payé par le consommateur, TVA incluse. Les entreprises facturent généralement en HT entre elles ; les consommateurs paient TTC.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Quel taux TVA s'applique à la restauration ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Les repas pris sur place sont taxés à 10%. La vente à emporter de produits froids (sandwichs) est à 5.5%, et les plats chauds à emporter à 10%. Les boissons alcoolisées sont toujours à 20%.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Les auto-entrepreneurs doivent-ils facturer la TVA ?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Pas si leur chiffre d'affaires est sous le seuil de franchise (36 800 € pour les services, 91 900 € pour les ventes en 2024). En dessous, ils sont exonérés et doivent mentionner "TVA non applicable, art. 293 B du CGI" sur leurs factures.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Autres pays</h3>
+          <ul class="related-list">
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> TVA Allemagne (19%)</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> VAT Royaume-Uni (20%)</a></li>
+            <li><a href="../spain/index.html"><span class="rel-icon">🇪🇸</span> IVA Espagne (21%)</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> TVA Belgique (21%)</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Référence rapide</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>100 € HT + 20%</span><strong style="color:var(--color-text)">120 € TTC</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € HT + 10%</span><strong style="color:var(--color-text)">110 € TTC</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € HT + 5.5%</span><strong style="color:var(--color-text)">105,50 € TTC</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>120 € TTC ÷ 1,20</span><strong style="color:var(--color-text)">100 € HT</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Calculatrices liées</h3>
+          <ul class="related-list">
+            <li><a href="../../salary/france/index.html"><span class="rel-icon">💼</span> Salaire Net France</a></li>
+            <li><a href="../../percentage/"><span class="rel-icon">%</span> Pourcentages</a></li>
+            <li><a href="../../discount/"><span class="rel-icon">🏷️</span> Remise / Promo</a></li>
+            <li><a href="../../profit-margin/"><span class="rel-icon">📊</span> Marge bénéficiaire</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">Toutes les calculatrices</a></p><p>Résultats à titre indicatif uniquement.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode = 'add';
+  function setVatMode(mode, btn) {
+    vatMode = mode;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('vat-price-label').textContent = mode === 'add' ? 'Prix HT (hors taxes)' : 'Prix TTC (toutes taxes comprises)';
+    document.getElementById('result-label').textContent = mode === 'add' ? 'Prix TTC (toutes taxes comprises)' : 'Prix HT (hors taxes)';
+    calcVAT();
+  }
+  function fmt(n) { return n.toLocaleString('fr-FR', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function calcVAT() {
+    const price = parseFloat(document.getElementById('vat-price').value);
+    const rate = parseFloat(document.getElementById('vat-rate').value);
+    if (isNaN(price) || price < 0) { document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; return; }
+    let ht, ttc, tva;
+    if (vatMode === 'add') { ht = price; ttc = price * (1 + rate/100); tva = ttc - ht; }
+    else { ttc = price; ht = price / (1 + rate/100); tva = ttc - ht; }
+    document.getElementById('vat-result').textContent = vatMode === 'add' ? fmt(ttc) : fmt(ht);
+    document.getElementById('vat-breakdown').style.display = '';
+    document.getElementById('bd-ht').textContent = fmt(ht);
+    document.getElementById('bd-tva').textContent = fmt(tva);
+    document.getElementById('bd-ttc').textContent = fmt(ttc);
+  }
+  function resetVAT() { document.getElementById('vat-price').value = ''; document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; }
+</script>
+</body>
+</html>
