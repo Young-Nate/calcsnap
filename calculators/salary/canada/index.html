@@ -1,1 +1,241 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"fdbfa013e220190b2ab979e73d8af10f8b824ea5"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canada Salary Calculator — Federal Tax, CPP & EI 2025 | CalcSnap</title>
+  <meta name="description" content="Free Canada salary calculator for 2025. Estimate federal income tax, CPP contributions, and EI premiums. See your take-home pay by province." />
+  <meta property="og:title" content="Canada Salary Calculator — Take-Home Pay 2025 | CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/canada/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);}
+    .country-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:2px solid var(--color-border);border-radius:var(--radius-full);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all 0.15s;font-family:var(--font-body);text-decoration:none;}
+    .country-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}
+    .country-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Canada Salary Calculator","url":"https://calcsnap.app/calculators/salary/canada/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"CAD"},"description":"Canadian federal income tax, CPP, and EI take-home pay calculator for 2025."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>Canada</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn active">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇨🇦 Finance · Canada</div>
+      <h1>Canada Salary Calculator — Federal Tax, CPP & EI 2025</h1>
+      <p>Estimate your federal income tax, CPP contributions, and EI premiums for 2025. Select your province for a combined federal + provincial take-home pay estimate.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="gross-ca">Gross Annual Salary</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">$</span><input type="number" id="gross-ca" placeholder="e.g. 80000" min="0" step="1000" oninput="calcCA()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="province">Province / Territory</label>
+              <select id="province" onchange="calcCA()">
+                <option value="0.0505" data-name="Alberta">Alberta</option>
+                <option value="0.0506" data-name="British Columbia">British Columbia</option>
+                <option value="0.108" data-name="Manitoba">Manitoba</option>
+                <option value="0.0982" data-name="New Brunswick">New Brunswick</option>
+                <option value="0.087" data-name="Newfoundland">Newfoundland</option>
+                <option value="0.0879" data-name="Nova Scotia">Nova Scotia</option>
+                <option value="0.055" data-name="Ontario" selected>Ontario</option>
+                <option value="0.098" data-name="Prince Edward Island">Prince Edward Island</option>
+                <option value="0.14" data-name="Quebec">Quebec</option>
+                <option value="0.105" data-name="Saskatchewan">Saskatchewan</option>
+                <option value="0.064" data-name="NWT / Nunavut / Yukon">NWT / Nunavut / Yukon</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="result-box" id="ca-result" style="display:none;">
+            <div class="result-label">Annual Take-Home Pay (est.)</div>
+            <div class="result-value" id="ca-net-annual">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Gross salary</span><span class="value" id="ca-bd-gross">—</span></div>
+              <div class="breakdown-row"><span class="label">Federal income tax</span><span class="value" id="ca-bd-fed" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Provincial tax (est.)</span><span class="value" id="ca-bd-prov" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">CPP (5.95% on eligible)</span><span class="value" id="ca-bd-cpp" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">EI (1.66% up to $63,200)</span><span class="value" id="ca-bd-ei" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row" style="border-top:2px solid var(--color-border);padding-top:var(--space-3);margin-top:var(--space-2);"><span class="label"><strong>Net annual pay</strong></span><span class="value"><strong id="ca-bd-net-annual" style="color:var(--color-primary);">—</strong></span></div>
+              <div class="breakdown-row"><span class="label">Net monthly pay</span><span class="value" id="ca-bd-net-monthly">—</span></div>
+              <div class="breakdown-row"><span class="label">Effective total rate</span><span class="value" id="ca-bd-eff">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Provincial rates are simplified estimates. Quebec uses a different CPP-equivalent (QPP). Consult a Canadian tax professional for precise figures.</p>
+          <button class="btn-reset" onclick="resetCA()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How Canadian Federal Tax Works</h2>
+            <p>Canada uses a progressive federal income tax system. After claiming the Basic Personal Amount (BPA) of $15,705, the remaining income is taxed at graduated rates. Provincial tax is added on top — each province sets its own brackets. CPP (Canada Pension Plan) and EI (Employment Insurance) are mandatory payroll deductions.</p>
+            <div class="formula-box">2025 Federal Tax Brackets:
+  15%   on income $0 – $57,375
+  20.5% on income $57,376 – $114,750
+  26%   on income $114,751 – $158,519
+  29%   on income $158,520 – $220,000
+  33%   on income above $220,000
+
+Basic Personal Amount: $15,705 (federal credit)
+CPP: 5.95% on earnings $3,500 – $68,500 (max $3,867)
+EI:  1.66% on insurable earnings up to $63,200 (max $1,049)</div>
+            <div class="example-box">
+              <div class="example-title">Example — $80,000 gross salary (Ontario, 2025)</div>
+              <p>Federal taxable income ≈ $80,000 (after BPA non-refundable credit applied)</p>
+              <p>Federal tax ≈ $13,478 (before BPA credit of $2,356) = <strong>~$11,122</strong></p>
+              <p>Ontario provincial tax ≈ $80,000 × 5.5% = <strong>~$4,400</strong></p>
+              <p>CPP = ($68,500 − $3,500) × 5.95% = <strong>$3,867</strong></p>
+              <p>EI = $63,200 × 1.66% = <strong>$1,049</strong></p>
+              <p>Net annual ≈ $80,000 − $11,122 − $4,400 − $3,867 − $1,049 = <strong>~$59,562</strong> (~$4,964/mo)</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the Basic Personal Amount in 2025?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The federal Basic Personal Amount (BPA) for 2025 is $15,705. This is a non-refundable tax credit — it reduces your federal tax bill by $15,705 × 15% = $2,356, rather than reducing your taxable income directly. Most provinces also have their own basic personal amount.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What is CPP and who pays it?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The Canada Pension Plan (CPP) is a mandatory retirement savings program. Employees contribute 5.95% on earnings between $3,500 (exemption) and $68,500 (maximum pensionable earnings), for a maximum annual contribution of $3,867 in 2025. Employers match this amount. Quebec residents contribute to QPP instead of CPP.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Which province has the lowest income tax?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Alberta has the lowest provincial income tax in Canada, with a flat rate starting at 10% (and no provincial sales tax). Ontario and British Columbia have relatively moderate rates for most income levels, while Quebec and Nova Scotia tend to have higher combined rates. The province you live and work in determines which provincial rates apply.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Other Countries</h3>
+          <ul class="related-list">
+            <li><a href="../us/index.html"><span class="rel-icon">🇺🇸</span> Salary US</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> Salary UK</a></li>
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> Salaire France</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> Gehalt Deutschland</a></li>
+            <li><a href="../netherlands/index.html"><span class="rel-icon">🇳🇱</span> Salaris Nederland</a></li>
+            <li><a href="../index.html"><span class="rel-icon">🌍</span> All countries</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>2025 Payroll Rates</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>CPP rate</span><strong style="color:var(--color-text)">5.95%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>CPP max earnings</span><strong style="color:var(--color-text)">$68,500</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>EI rate</span><strong style="color:var(--color-text)">1.66%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>EI max insurable</span><strong style="color:var(--color-primary)">$63,200</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../../vat/canada/index.html"><span class="rel-icon">🇨🇦</span> Canada GST/HST</a></li>
+            <li><a href="../../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+            <li><a href="../../loan-payment/index.html"><span class="rel-icon">🏦</span> Loan Payment</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Federal + provincial estimates only. Consult a tax professional for accurate figures.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  function fmt(n) { return 'CA$' + Math.round(n).toLocaleString('en-CA'); }
+
+  function federalTaxCA(gross) {
+    // Apply BPA credit separately after computing raw federal tax
+    const brackets = [
+      [57375, 0.15],
+      [114750, 0.205],
+      [158519, 0.26],
+      [220000, 0.29],
+      [Infinity, 0.33]
+    ];
+    let tax = 0, prev = 0;
+    for (const [limit, rate] of brackets) {
+      if (gross <= prev) break;
+      tax += (Math.min(gross, limit) - prev) * rate;
+      prev = limit;
+    }
+    // BPA non-refundable credit: $15,705 × 15%
+    const bpaCredit = 15705 * 0.15;
+    return Math.max(0, tax - bpaCredit);
+  }
+
+  function calcCA() {
+    const gross = parseFloat(document.getElementById('gross-ca').value);
+    if (isNaN(gross) || gross <= 0) { document.getElementById('ca-result').style.display = 'none'; return; }
+
+    const sel = document.getElementById('province');
+    const provRate = parseFloat(sel.value);
+
+    const fedTax = federalTaxCA(gross);
+    const provTax = gross * provRate;
+
+    // CPP: 5.95% on earnings between $3,500 and $68,500
+    const cppBasis = Math.max(0, Math.min(gross, 68500) - 3500);
+    const cpp = cppBasis * 0.0595;
+
+    // EI: 1.66% up to $63,200
+    const eiBasis = Math.min(gross, 63200);
+    const ei = eiBasis * 0.0166;
+
+    const totalDeductions = fedTax + provTax + cpp + ei;
+    const netAnnual = gross - totalDeductions;
+    const effRate = (totalDeductions / gross * 100).toFixed(1);
+
+    document.getElementById('ca-result').style.display = '';
+    document.getElementById('ca-net-annual').textContent = fmt(netAnnual);
+    document.getElementById('ca-bd-gross').textContent = fmt(gross);
+    document.getElementById('ca-bd-fed').textContent = '−' + fmt(fedTax);
+    document.getElementById('ca-bd-prov').textContent = '−' + fmt(provTax);
+    document.getElementById('ca-bd-cpp').textContent = '−' + fmt(cpp);
+    document.getElementById('ca-bd-ei').textContent = '−' + fmt(ei);
+    document.getElementById('ca-bd-net-annual').textContent = fmt(netAnnual);
+    document.getElementById('ca-bd-net-monthly').textContent = fmt(netAnnual / 12) + '/mo';
+    document.getElementById('ca-bd-eff').textContent = effRate + '%';
+  }
+
+  function resetCA() {
+    document.getElementById('gross-ca').value = '';
+    document.getElementById('ca-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>
