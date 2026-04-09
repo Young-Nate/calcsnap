@@ -1,1 +1,194 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"985711730e20a8f382493b2e523fe9119addc28e"}}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora IVA España — Calcular IVA 21% 10% 4% | CalcSnap</title>
+  <meta name="description" content="Calculadora IVA España gratuita. Añade o quita el IVA a los tipos del 21%, 10% y 4%. Cálculo de precio sin IVA / con IVA al instante." />
+  <meta property="og:title" content="Calculadora IVA España (sin IVA / con IVA) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/spain/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>Spain</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../spain/index.html" class="country-btn active">🇪🇸 Spain</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../italy/index.html" class="country-btn">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../portugal/index.html" class="country-btn">🇵🇹 Portugal</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇪🇸 Finance · España</div>
+      <h1>Calculadora IVA España — Tipos 21%, 10% y 4%</h1>
+      <p>Añade o quita el IVA (Impuesto sobre el Valor Añadido) a cualquier precio. Compatible con todos los tipos de IVA españoles: 21%, 10% y 4%.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setVatMode('add',this)">Añadir IVA (sin IVA → con IVA)</button>
+            <button class="cat-tab" onclick="setVatMode('remove',this)">Quitar IVA (con IVA → sin IVA)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">Tipo de IVA</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="21" selected>21% — Tipo general</option>
+              <option value="10">10% — Tipo reducido</option>
+              <option value="4">4% — Tipo superreducido</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Precio sin IVA (base imponible)</label>
+            <div class="input-wrap has-prefix">
+              <span class="input-prefix">€</span>
+              <input type="number" id="vat-price" placeholder="ej. 100,00" min="0" step="0.01" oninput="calcVAT()" />
+            </div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Precio con IVA (precio final)</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Base imponible (sin IVA)</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">Cuota IVA</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Total con IVA</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Reiniciar</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Tipos de IVA en España</h2>
+            <p>En España el IVA tiene tres tipos principales. El tipo general del 21% se aplica a la mayoría de bienes y servicios. Los tipos reducido y superreducido se aplican a productos básicos y de primera necesidad.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead>
+                  <tr style="background:var(--color-surface-offset);text-align:left;">
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Tipo</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Categoría</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Ejemplos</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">21%</td><td style="padding:var(--space-3) var(--space-4);">Tipo general</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Electrónica, ropa, coches, servicios profesionales</td></tr>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">10%</td><td style="padding:var(--space-3) var(--space-4);">Tipo reducido</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Alimentos, hostelería, transporte, vivienda</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">4%</td><td style="padding:var(--space-3) var(--space-4);">Tipo superreducido</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Pan, leche, huevos, frutas, libros, medicamentos</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">Añadir IVA:  Precio con IVA = Base × (1 + tipo / 100)
+Quitar IVA:  Base = Precio con IVA / (1 + tipo / 100)
+Cuota IVA:   IVA = Precio con IVA − Base</div>
+            <div class="example-box">
+              <div class="example-title">Ejemplo — Añadir 21% IVA a 500 € (base)</div>
+              <p>Con IVA = 500 × 1,21 = <strong>605 € con IVA</strong></p>
+              <p>Cuota IVA = 605 − 500 = <strong>105 €</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">Ejemplo — Calcular base desde 121 € con IVA</div>
+              <p>Base = 121 / 1,21 = <strong>100 € base</strong></p>
+              <p>IVA = 121 − 100 = <strong>21 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Preguntas frecuentes</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">¿Cuándo hay que registrarse para IVA en España?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">En España, cualquier empresario o profesional que realice actividades sujetas a IVA debe registrarse desde el inicio de su actividad, independientemente del volumen de facturación. No existe un umbral de registro como en el Reino Unido o Alemania.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">¿Qué IVA se aplica a los alimentos en España?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Los alimentos básicos (pan, leche, huevos, frutas, verduras, legumbres) tributan al 4% (superreducido). Los alimentos procesados y elaborados suelen tributar al 10% (reducido). Las bebidas alcohólicas y refrescos al 21%.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">¿Cómo se declara el IVA en España?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">La declaración de IVA se presenta trimestralmente mediante el modelo 303 ante la Agencia Tributaria (AEAT). Las grandes empresas presentan declaraciones mensuales. También hay un resumen anual (modelo 390).</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Otros países</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA Francia (20%)</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> MwSt Alemania (19%)</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> VAT Reino Unido (20%)</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> BTW Bélgica (21%)</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Referencia rápida</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 21%</span><strong style="color:var(--color-text)">121 € con IVA</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 10%</span><strong style="color:var(--color-text)">110 € con IVA</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 4%</span><strong style="color:var(--color-text)">104 € con IVA</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>121 € ÷ 1,21</span><strong style="color:var(--color-text)">100 € base</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Resultados solo con fines informativos.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode = 'add';
+  function setVatMode(mode, btn) {
+    vatMode = mode;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('vat-price-label').textContent = mode === 'add' ? 'Precio sin IVA (base imponible)' : 'Precio con IVA (precio final)';
+    document.getElementById('result-label').textContent = mode === 'add' ? 'Precio con IVA (precio final)' : 'Precio sin IVA (base imponible)';
+    calcVAT();
+  }
+  function fmt(n) { return n.toLocaleString('es-ES', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function calcVAT() {
+    const price = parseFloat(document.getElementById('vat-price').value);
+    const rate = parseFloat(document.getElementById('vat-rate').value);
+    if (isNaN(price) || price < 0) { document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; return; }
+    let ht, ttc, tva;
+    if (vatMode === 'add') { ht = price; ttc = price * (1 + rate/100); tva = ttc - ht; }
+    else { ttc = price; ht = price / (1 + rate/100); tva = ttc - ht; }
+    document.getElementById('vat-result').textContent = vatMode === 'add' ? fmt(ttc) : fmt(ht);
+    document.getElementById('vat-breakdown').style.display = '';
+    document.getElementById('bd-ht').textContent = fmt(ht);
+    document.getElementById('bd-tva').textContent = fmt(tva);
+    document.getElementById('bd-ttc').textContent = fmt(ttc);
+  }
+  function resetVAT() { document.getElementById('vat-price').value = ''; document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; }
+</script>
+</body>
+</html>
