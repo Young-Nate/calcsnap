@@ -1,1 +1,207 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"0f96f0e43de2ae7fd42f426a31564635d2068b27"}}
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UK Take-Home Pay Calculator 2025/26 — Gross to Net | CalcSnap</title>
+  <meta name="description" content="Free UK salary take-home pay calculator 2025/26. Calculate your net pay after Income Tax and National Insurance. Instant results, no login." />
+  <meta property="og:title" content="UK Take-Home Pay Calculator 2025/26 — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/uk/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>UK</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn active">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇬🇧 Finance · United Kingdom</div>
+      <h1>UK Take-Home Pay Calculator 2025/26</h1>
+      <p>Calculate your net (take-home) pay from your gross annual salary. Includes Income Tax (PAYE) and National Insurance contributions for the 2025/26 tax year.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="gross-annual">Gross Annual Salary</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">£</span><input type="number" id="gross-annual" placeholder="e.g. 35000" min="0" step="100" oninput="calcUKSalary()" /></div>
+          </div>
+          <div class="form-group">
+            <label for="tax-code">Tax Code</label>
+            <select id="tax-code" onchange="calcUKSalary()">
+              <option value="1257L" selected>1257L (Standard — most employees)</option>
+              <option value="BR">BR (Basic Rate — 20% on all income)</option>
+              <option value="0T">0T (No personal allowance)</option>
+            </select>
+          </div>
+
+          <div class="result-box" id="salary-result" style="display:none;">
+            <div class="result-label">Monthly Take-Home Pay</div>
+            <div class="result-value" id="net-monthly">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Gross annual</span><span class="value" id="bd-gross-annual">—</span></div>
+              <div class="breakdown-row"><span class="label">Income Tax (PAYE)</span><span class="value" id="bd-tax" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">National Insurance</span><span class="value" id="bd-ni" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Net annual</span><span class="value" id="bd-net-annual">—</span></div>
+              <div class="breakdown-row"><span class="label">Net monthly</span><span class="value" id="bd-net-monthly">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ England, Wales & Northern Ireland rates. Scotland has different Income Tax bands. Estimates only — no pension, student loan, or other deductions included.</p>
+          <button class="btn-reset" onclick="resetSalary()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>UK Income Tax & NI Rates 2025/26</h2>
+            <p>The UK uses a Pay As You Earn (PAYE) system. Your employer deducts Income Tax and National Insurance (NI) from each payslip before you're paid.</p>
+            <div class="formula-box">Personal Allowance:  £12,570 (tax-free)
+Basic Rate (20%):    £12,571 – £50,270
+Higher Rate (40%):   £50,271 – £125,140
+Additional Rate (45%): over £125,140
+
+National Insurance (Class 1, employee):
+8% on earnings £12,570 – £50,270/year
+2% on earnings above £50,270/year</div>
+            <div class="example-box">
+              <div class="example-title">Example — £35,000 gross annual (tax code 1257L)</div>
+              <p>Taxable income = £35,000 − £12,570 = £22,430</p>
+              <p>Income Tax = £22,430 × 20% = <strong>£4,486/year</strong></p>
+              <p>NI = (£35,000 − £12,570) × 8% = <strong>£1,794/year</strong></p>
+              <p>Net annual = £35,000 − £4,486 − £1,794 = <strong>£28,720</strong> (~£2,393/month)</p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the Personal Allowance in 2025/26?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The standard Personal Allowance for 2025/26 is £12,570. This is the amount you can earn tax-free. It has been frozen at this level since 2021/22. Higher earners (above £100,000) have their allowance reduced by £1 for every £2 earned above £100,000.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Does the calculator include pension contributions?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">No. Workplace pension contributions (typically 5% employee, 3% employer under auto-enrolment) are not included. If you have pension deductions, your actual take-home pay will be lower, but your tax bill may also be reduced if contributions are made from pre-tax salary.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Are Scottish Income Tax rates different?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Yes. Scotland has its own Income Tax bands set by the Scottish Parliament, with more bands and different thresholds. This calculator uses England, Wales and Northern Ireland rates. Scottish residents should use the HMRC tax calculator or a Scotland-specific tool.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Other Countries</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> Salary Net France</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> Nettolohn Germany</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> Salary Net Belgium</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Tax Bands 2025/26</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>Up to £12,570</span><strong style="color:var(--color-text)">0% (Personal Allowance)</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>£12,571–£50,270</span><strong style="color:var(--color-text)">20% Basic</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>£50,271–£125,140</span><strong style="color:var(--color-text)">40% Higher</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Over £125,140</span><strong style="color:var(--color-text)">45% Additional</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../../vat/uk/index.html"><span class="rel-icon">🇬🇧</span> VAT Calculator UK</a></li>
+            <li><a href="../../loan-payment/"><span class="rel-icon">🏦</span> Loan Payment</a></li>
+            <li><a href="../../compound-interest/"><span class="rel-icon">📈</span> Compound Interest</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Estimates only. Verify with HMRC or a tax adviser.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  function fmtGBP(n) { return '£' + Math.round(n).toLocaleString('en-GB'); }
+
+  function calcUKSalary() {
+    const gross = parseFloat(document.getElementById('gross-annual').value);
+    if (isNaN(gross) || gross <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const taxCode = document.getElementById('tax-code').value;
+
+    // Personal allowance
+    let personalAllowance = 12570;
+    if (taxCode === 'BR' || taxCode === '0T') personalAllowance = 0;
+    // taper above 100k
+    if (gross > 100000) {
+      const reduction = Math.min(Math.floor((gross - 100000) / 2), personalAllowance);
+      personalAllowance = Math.max(0, personalAllowance - reduction);
+    }
+
+    // Income Tax
+    let tax = 0;
+    const taxable = Math.max(0, gross - personalAllowance);
+    if (taxCode === 'BR') {
+      tax = gross * 0.20;
+    } else {
+      const basicBand = Math.min(taxable, 50270 - 12570); // 37700
+      const higherBand = Math.max(0, Math.min(taxable - 37700, 125140 - 50270));
+      const additionalBand = Math.max(0, taxable - (125140 - 12570));
+      tax = basicBand * 0.20 + higherBand * 0.40 + additionalBand * 0.45;
+    }
+
+    // National Insurance (Class 1 employee 2025/26)
+    const niLower = 12570;
+    const niUpper = 50270;
+    let ni = 0;
+    if (gross > niLower) {
+      ni += Math.min(gross, niUpper) * 0.08 - niLower * 0.08;
+      if (gross > niUpper) ni += (gross - niUpper) * 0.02;
+    }
+
+    const netAnnual = gross - tax - ni;
+    const netMonthly = netAnnual / 12;
+
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('net-monthly').textContent = fmtGBP(netMonthly) + '/mo';
+    document.getElementById('bd-gross-annual').textContent = fmtGBP(gross);
+    document.getElementById('bd-tax').textContent = '−' + fmtGBP(tax);
+    document.getElementById('bd-ni').textContent = '−' + fmtGBP(ni);
+    document.getElementById('bd-net-annual').textContent = fmtGBP(netAnnual);
+    document.getElementById('bd-net-monthly').textContent = fmtGBP(netMonthly);
+  }
+
+  function resetSalary() { document.getElementById('gross-annual').value = ''; document.getElementById('salary-result').style.display = 'none'; }
+</script>
+</body>
+</html>
