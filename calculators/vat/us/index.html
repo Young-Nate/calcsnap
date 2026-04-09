@@ -1,1 +1,260 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"bd9ab67abc7c04b11cc02bb461fea44bca55cc96"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>US Sales Tax Calculator — Add or Remove Sales Tax by State | CalcSnap</title>
+  <meta name="description" content="Free US sales tax calculator. Add or remove sales tax for all 50 states. Pick your state or enter a custom rate. Instant pre-tax / after-tax calculation." />
+  <meta property="og:title" content="US Sales Tax Calculator by State — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/us/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher{display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);}
+    .country-btn{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);border:2px solid var(--color-border);border-radius:var(--radius-full);background:var(--color-surface);font-size:var(--text-xs);font-weight:600;color:var(--color-text-muted);cursor:pointer;transition:all 0.15s;font-family:var(--font-body);text-decoration:none;}
+    .country-btn:hover{border-color:var(--color-primary);color:var(--color-primary);}
+    .country-btn.active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+    .state-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);}
+    @media(max-width:600px){.state-grid{grid-template-columns:1fr;}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"US Sales Tax Calculator","url":"https://calcsnap.app/calculators/vat/us/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free US sales tax calculator for all 50 states."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>United States</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn active">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn">🇩🇪 Germany</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../spain/index.html" class="country-btn">🇪🇸 Spain</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../italy/index.html" class="country-btn">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../portugal/index.html" class="country-btn">🇵🇹 Portugal</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇺🇸 Finance · United States</div>
+      <h1>US Sales Tax Calculator by State</h1>
+      <p>Calculate sales tax for any US state. Select your state to load the combined rate (state + average local), or enter a custom rate. Pre-tax and after-tax price calculated instantly.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setMode('add',this)">Add Tax (Pre-tax → Total)</button>
+            <button class="cat-tab" onclick="setMode('remove',this)">Remove Tax (Total → Pre-tax)</button>
+          </div>
+
+          <div class="state-grid">
+            <div class="form-group">
+              <label for="state-select">State</label>
+              <select id="state-select" onchange="onStateChange()">
+                <option value="custom">Custom rate</option>
+                <option value="0">Alaska — 0% (state only)</option>
+                <option value="4">Alabama — ~9% combined</option>
+                <option value="2">Arizona — ~8.4% combined</option>
+                <option value="3.5">Arkansas — ~9.1% combined</option>
+                <option value="8.68" selected>California — ~8.68% combined</option>
+                <option value="7.72">Colorado — ~7.72% combined</option>
+                <option value="6.35">Connecticut — 6.35%</option>
+                <option value="0">Delaware — 0% (no sales tax)</option>
+                <option value="7.02">Florida — ~7.02% combined</option>
+                <option value="7.35">Georgia — ~7.35% combined</option>
+                <option value="4.44">Hawaii — ~4.44% (GET)</option>
+                <option value="6.02">Idaho — ~6.02% combined</option>
+                <option value="8.85">Illinois — ~8.85% combined</option>
+                <option value="7">Indiana — 7%</option>
+                <option value="6.94">Iowa — ~6.94% combined</option>
+                <option value="8.7">Kansas — ~8.7% combined</option>
+                <option value="6">Kentucky — 6%</option>
+                <option value="9.55">Louisiana — ~9.55% combined</option>
+                <option value="5.5">Maine — 5.5%</option>
+                <option value="6">Maryland — 6%</option>
+                <option value="6.25">Massachusetts — 6.25%</option>
+                <option value="6">Michigan — 6%</option>
+                <option value="7.47">Minnesota — ~7.47% combined</option>
+                <option value="7.07">Mississippi — ~7.07% combined</option>
+                <option value="8.25">Missouri — ~8.25% combined</option>
+                <option value="0">Montana — 0% (no sales tax)</option>
+                <option value="6.97">Nebraska — ~6.97% combined</option>
+                <option value="8.23">Nevada — ~8.23% combined</option>
+                <option value="0">New Hampshire — 0%</option>
+                <option value="6.6">New Jersey — ~6.6% combined</option>
+                <option value="7.83">New Mexico — ~7.83% combined</option>
+                <option value="8.52">New York — ~8.52% combined</option>
+                <option value="6.98">North Carolina — ~6.98% combined</option>
+                <option value="5">North Dakota — ~6.86% combined</option>
+                <option value="7.22">Ohio — ~7.22% combined</option>
+                <option value="8.99">Oklahoma — ~8.99% combined</option>
+                <option value="0">Oregon — 0% (no sales tax)</option>
+                <option value="6.34">Pennsylvania — ~6.34% combined</option>
+                <option value="7">Rhode Island — 7%</option>
+                <option value="7.44">South Carolina — ~7.44% combined</option>
+                <option value="6.4">South Dakota — ~6.4% combined</option>
+                <option value="9.55">Tennessee — ~9.55% combined</option>
+                <option value="8.19">Texas — ~8.19% combined</option>
+                <option value="7.19">Utah — ~7.19% combined</option>
+                <option value="6.18">Vermont — ~6.18% combined</option>
+                <option value="5.73">Virginia — ~5.73% combined</option>
+                <option value="9.21">Washington — ~9.21% combined</option>
+                <option value="6.54">West Virginia — ~6.54% combined</option>
+                <option value="5.43">Wisconsin — ~5.43% combined</option>
+                <option value="5.36">Wyoming — ~5.36% combined</option>
+                <option value="10">Washington D.C. — 10%</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="custom-rate">Tax Rate (%)</label>
+              <input type="number" id="custom-rate" value="8.68" min="0" max="30" step="0.01" oninput="calcTax()" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="price-input" id="price-label">Pre-tax price</label>
+            <div class="input-wrap has-prefix">
+              <span class="input-prefix">$</span>
+              <input type="number" id="price-input" placeholder="e.g. 100.00" min="0" step="0.01" oninput="calcTax()" />
+            </div>
+          </div>
+
+          <div class="result-box">
+            <div class="result-label" id="result-label">Total (after tax)</div>
+            <div class="result-value" id="tax-result">—</div>
+            <div class="result-breakdown" id="tax-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Pre-tax price</span><span class="value" id="bd-pretax">—</span></div>
+              <div class="breakdown-row"><span class="label" id="bd-tax-label">Sales tax</span><span class="value" id="bd-tax">—</span></div>
+              <div class="breakdown-row"><span class="label">Total price</span><span class="value" id="bd-total">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetTax()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>US Sales Tax — How It Works</h2>
+            <p>Unlike VAT in Europe, US sales tax is only charged at the point of sale to the end consumer — businesses do not pay it on purchases for resale. Rates vary by state and can also vary by county and city, making the combined rate higher than the state rate alone.</p>
+            <div class="formula-box">Add tax:    Total = Pre-tax price × (1 + rate / 100)
+Remove tax: Pre-tax = Total / (1 + rate / 100)
+Tax amount: Tax = Total − Pre-tax
+
+Note: unlike EU VAT, US sales tax is NOT included in displayed prices.
+The tax is added at checkout.</div>
+            <div class="example-box">
+              <div class="example-title">Example — $89.99 item in California (~8.68%)</div>
+              <p>Tax = $89.99 × 0.0868 = <strong>$7.81</strong></p>
+              <p>Total at checkout = $89.99 + $7.81 = <strong>$97.80</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">States with no sales tax</div>
+              <p><strong>Alaska, Delaware, Montana, New Hampshire, Oregon</strong> have no statewide sales tax. Alaska allows local sales taxes, so the combined rate may still be above 0%.</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Is sales tax the same as VAT?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">No. VAT (used in Europe) is collected at every stage of production and is included in the displayed price. US sales tax is only collected once — at the final sale — and is added on top of the displayed price at checkout. From the consumer's perspective, both increase the final cost, but the mechanics and visibility are different.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Which state has the highest sales tax?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Louisiana and Tennessee have the highest combined average sales tax rates at around 9.55%, followed by Arkansas (~9.1%), Washington state (~9.21%), and Alabama (~9%). These are combined state + local averages — specific cities can be even higher.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Do online purchases have sales tax in the US?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Yes, since the 2018 South Dakota v. Wayfair Supreme Court ruling, states can require out-of-state online sellers to collect sales tax if they exceed certain sales thresholds (economic nexus). Most major retailers now collect sales tax in all states where it applies.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Other Countries</h3>
+          <ul class="related-list">
+            <li><a href="../canada/index.html"><span class="rel-icon">🇨🇦</span> Canada GST/HST</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> VAT UK (20%)</a></li>
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA France (20%)</a></li>
+            <li><a href="../germany/index.html"><span class="rel-icon">🇩🇪</span> MwSt Germany (19%)</a></li>
+            <li><a href="../index.html"><span class="rel-icon">🌍</span> All countries</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>No-Tax States</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>Alaska</span><strong style="color:var(--color-text)">0% (state)</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Delaware</span><strong style="color:var(--color-text)">0%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Montana</span><strong style="color:var(--color-text)">0%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>New Hampshire</span><strong style="color:var(--color-text)">0%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Oregon</span><strong style="color:var(--color-text)">0%</strong></div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../../salary/us/index.html"><span class="rel-icon">💼</span> US Take-Home Pay</a></li>
+            <li><a href="../../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../../discount/index.html"><span class="rel-icon">🏷️</span> Discount Calculator</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Combined rates are averages and may vary by city/county.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let taxMode = 'add';
+  function setMode(mode, btn) {
+    taxMode = mode;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('price-label').textContent = mode === 'add' ? 'Pre-tax price' : 'Total (after tax)';
+    document.getElementById('result-label').textContent = mode === 'add' ? 'Total (after tax)' : 'Pre-tax price';
+    calcTax();
+  }
+  function onStateChange() {
+    const sel = document.getElementById('state-select');
+    if (sel.value !== 'custom') document.getElementById('custom-rate').value = sel.value;
+    calcTax();
+  }
+  function fmt(n) { return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function calcTax() {
+    const price = parseFloat(document.getElementById('price-input').value);
+    const rate = parseFloat(document.getElementById('custom-rate').value);
+    if (isNaN(price) || price < 0 || isNaN(rate)) { document.getElementById('tax-result').textContent = '—'; document.getElementById('tax-breakdown').style.display = 'none'; return; }
+    let pretax, total, tax;
+    if (taxMode === 'add') { pretax = price; total = price * (1 + rate/100); tax = total - pretax; }
+    else { total = price; pretax = price / (1 + rate/100); tax = total - pretax; }
+    document.getElementById('tax-result').textContent = taxMode === 'add' ? fmt(total) : fmt(pretax);
+    document.getElementById('tax-breakdown').style.display = '';
+    document.getElementById('bd-tax-label').textContent = 'Sales tax (' + rate + '%)';
+    document.getElementById('bd-pretax').textContent = fmt(pretax);
+    document.getElementById('bd-tax').textContent = fmt(tax);
+    document.getElementById('bd-total').textContent = fmt(total);
+  }
+  function resetTax() { document.getElementById('price-input').value = ''; document.getElementById('tax-result').textContent = '—'; document.getElementById('tax-breakdown').style.display = 'none'; }
+</script>
+</body>
+</html>
