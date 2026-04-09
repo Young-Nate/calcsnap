@@ -1,1 +1,195 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"3dd91c392114367fde8f14fba4eee027ec6eeecd"}}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mehrwertsteuer Rechner Deutschland — MwSt 19% 7% | CalcSnap</title>
+  <meta name="description" content="Kostenloser Mehrwertsteuer-Rechner für Deutschland. MwSt bei 19% und 7% hinzurechnen oder herausrechnen. Netto/Brutto-Berechnung sofort." />
+  <meta property="og:title" content="MwSt Rechner Deutschland (Netto/Brutto) — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/germany/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"MwSt Rechner Deutschland","url":"https://calcsnap.app/calculators/vat/germany/","applicationCategory":"FinanceApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"description":"Kostenloser Mehrwertsteuer-Rechner für Deutschland. 19% und 7%."}
+  </script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">VAT Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">VAT Calculator</a><span>›</span><span>Germany</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../germany/index.html" class="country-btn active">🇩🇪 Germany</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../spain/index.html" class="country-btn">🇪🇸 Spain</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../italy/index.html" class="country-btn">🇮🇹 Italy</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+      <a href="../portugal/index.html" class="country-btn">🇵🇹 Portugal</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇩🇪 Finance · Deutschland</div>
+      <h1>Mehrwertsteuer Rechner Deutschland (MwSt)</h1>
+      <p>MwSt bei 19% (Normalsatz) oder 7% (ermäßigter Satz) hinzurechnen oder herausrechnen. Netto- und Brutto-Berechnung sofort — kein Login erforderlich.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="setVatMode('add',this)">MwSt hinzufügen (Netto → Brutto)</button>
+            <button class="cat-tab" onclick="setVatMode('remove',this)">MwSt herausrechnen (Brutto → Netto)</button>
+          </div>
+          <div class="form-group">
+            <label for="vat-rate">MwSt-Satz</label>
+            <select id="vat-rate" onchange="calcVAT()">
+              <option value="19" selected>19% — Normalsatz (Standard)</option>
+              <option value="7">7% — Ermäßigter Satz (Reduced)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="vat-price" id="vat-price-label">Nettobetrag (ohne MwSt)</label>
+            <div class="input-wrap has-prefix">
+              <span class="input-prefix">€</span>
+              <input type="number" id="vat-price" placeholder="z.B. 100,00" min="0" step="0.01" oninput="calcVAT()" />
+            </div>
+          </div>
+          <div class="result-box">
+            <div class="result-label" id="result-label">Bruttobetrag (mit MwSt)</div>
+            <div class="result-value" id="vat-result">—</div>
+            <div class="result-breakdown" id="vat-breakdown" style="display:none;">
+              <div class="breakdown-row"><span class="label">Nettobetrag</span><span class="value" id="bd-ht">—</span></div>
+              <div class="breakdown-row"><span class="label">MwSt-Betrag</span><span class="value" id="bd-tva">—</span></div>
+              <div class="breakdown-row"><span class="label">Bruttobetrag</span><span class="value" id="bd-ttc">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetVAT()">↺ Zurücksetzen</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>MwSt-Sätze in Deutschland</h2>
+            <p>Deutschland hat zwei MwSt-Sätze (Umsatzsteuer / USt). Der Normalsatz gilt für die meisten Waren und Dienstleistungen. Der ermäßigte Satz gilt für Lebensmittel, Bücher und bestimmte andere Waren.</p>
+            <div style="overflow-x:auto;margin:var(--space-5) 0;">
+              <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+                <thead>
+                  <tr style="background:var(--color-surface-offset);text-align:left;">
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Satz</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Kategorie</th>
+                    <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Beispiele</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">19%</td><td style="padding:var(--space-3) var(--space-4);">Normalsatz</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Elektronik, Kleidung, Autos, Dienstleistungen</td></tr>
+                  <tr><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">7%</td><td style="padding:var(--space-3) var(--space-4);">Ermäßigter Satz</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Lebensmittel, Bücher, Zeitungen, Personentransport, Hotel</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="formula-box">MwSt hinzufügen:  Brutto = Netto × (1 + Satz / 100)
+MwSt herausrechnen: Netto = Brutto / (1 + Satz / 100)
+MwSt-Betrag:      MwSt = Brutto − Netto</div>
+            <div class="example-box">
+              <div class="example-title">Beispiel — 19% MwSt auf 500 € Netto</div>
+              <p>Brutto = 500 × 1,19 = <strong>595 € Brutto</strong></p>
+              <p>MwSt-Betrag = 595 − 500 = <strong>95 €</strong></p>
+            </div>
+            <div class="example-box">
+              <div class="example-title">Beispiel — MwSt aus 119 € Brutto herausrechnen</div>
+              <p>Netto = 119 / 1,19 = <strong>100 € Netto</strong></p>
+              <p>MwSt = 119 − 100 = <strong>19 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Häufig gestellte Fragen</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Was ist der Unterschied zwischen Netto und Brutto?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Netto ist der Preis ohne MwSt (Umsatzsteuer). Brutto ist der Endpreis inklusive MwSt. Unternehmen stellen Rechnungen in der Regel als Nettobetrag aus; Verbraucher zahlen immer den Bruttobetrag.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Welcher MwSt-Satz gilt für Restaurantbesuche?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Speisen zum Mitnehmen werden mit 7% besteuert. Speisen und Getränke, die im Restaurant verzehrt werden, gelten als sonstige Leistung und werden mit 19% besteuert. Die temporäre Absenkung auf 7% für Restaurantleistungen lief Ende 2023 aus.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Müssen Kleinunternehmer MwSt ausweisen?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Nein. Kleinunternehmer nach §19 UStG, deren Umsatz im Vorjahr 22.000 € nicht überschritten hat und im laufenden Jahr voraussichtlich 50.000 € nicht übersteigt, sind von der MwSt-Pflicht befreit. Sie dürfen keine MwSt ausweisen und müssen auf Rechnungen auf die Kleinunternehmerregelung hinweisen.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Other Countries</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> TVA France (20%)</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> VAT UK (20%)</a></li>
+            <li><a href="../spain/index.html"><span class="rel-icon">🇪🇸</span> IVA Spain (21%)</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> BTW Belgium (21%)</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Schnellreferenz</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 19%</span><strong style="color:var(--color-text)">119 € Brutto</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>100 € + 7%</span><strong style="color:var(--color-text)">107 € Brutto</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>119 € ÷ 1,19</span><strong style="color:var(--color-text)">100 € Netto</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>107 € ÷ 1,07</span><strong style="color:var(--color-text)">100 € Netto</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  let vatMode = 'add';
+  function setVatMode(mode, btn) {
+    vatMode = mode;
+    document.querySelectorAll('.tool-card .cat-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('vat-price-label').textContent = mode === 'add' ? 'Nettobetrag (ohne MwSt)' : 'Bruttobetrag (mit MwSt)';
+    document.getElementById('result-label').textContent = mode === 'add' ? 'Bruttobetrag (mit MwSt)' : 'Nettobetrag (ohne MwSt)';
+    calcVAT();
+  }
+  function fmt(n) { return n.toLocaleString('de-DE', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' €'; }
+  function calcVAT() {
+    const price = parseFloat(document.getElementById('vat-price').value);
+    const rate = parseFloat(document.getElementById('vat-rate').value);
+    if (isNaN(price) || price < 0) { document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; return; }
+    let ht, ttc, tva;
+    if (vatMode === 'add') { ht = price; ttc = price * (1 + rate/100); tva = ttc - ht; }
+    else { ttc = price; ht = price / (1 + rate/100); tva = ttc - ht; }
+    document.getElementById('vat-result').textContent = vatMode === 'add' ? fmt(ttc) : fmt(ht);
+    document.getElementById('vat-breakdown').style.display = '';
+    document.getElementById('bd-ht').textContent = fmt(ht);
+    document.getElementById('bd-tva').textContent = fmt(tva);
+    document.getElementById('bd-ttc').textContent = fmt(ttc);
+  }
+  function resetVAT() { document.getElementById('vat-price').value = ''; document.getElementById('vat-result').textContent = '—'; document.getElementById('vat-breakdown').style.display = 'none'; }
+</script>
+</body>
+</html>
