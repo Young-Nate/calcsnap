@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calorie Calculator — Daily Calorie Needs (TDEE) | CalcSnap</title>
+  <meta name="description" content="Calculate your daily calorie needs (TDEE) based on age, weight, height and activity level. Free calorie calculator — no login required." />
+  <meta property="og:title" content="Calorie Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate your daily calorie needs (TDEE) instantly. Free online calorie calculator — no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/calorie/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Calorie Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate your daily calorie needs (TDEE) instantly. Free online calorie calculator — no login." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/calorie/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calorie Calculator",
+  "url": "https://calcsnap.app/calculators/calorie/",
+  "description": "Free online TDEE and daily calorie needs calculator.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#lifestyle">Lifestyle</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Calorie Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">🔥 Lifestyle · Health</div>
+      <h1>Calorie Calculator</h1>
+      <p>Estimate your daily calorie needs (TDEE — Total Daily Energy Expenditure) based on your age, sex, weight, height, and activity level using the scientifically validated Mifflin-St Jeor equation.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <!-- Sex -->
+          <div class="form-group">
+            <label>Biological sex</label>
+            <div style="display:flex;gap:var(--space-2);">
+              <button class="cat-tab active" id="sex-male" onclick="setSex('male',this)">Male</button>
+              <button class="cat-tab" id="sex-female" onclick="setSex('female',this)">Female</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="cal-age">Age</label>
+              <div class="input-wrap has-suffix"><input type="number" id="cal-age" placeholder="25" min="15" max="100" step="1" oninput="calcCalories()" /><span class="input-suffix">yrs</span></div>
+            </div>
+            <div class="form-group">
+              <label for="cal-weight">Weight</label>
+              <div class="input-wrap has-suffix"><input type="number" id="cal-weight" placeholder="70" min="30" step="0.5" oninput="calcCalories()" /><span class="input-suffix">kg</span></div>
+            </div>
+            <div class="form-group">
+              <label for="cal-height">Height</label>
+              <div class="input-wrap has-suffix"><input type="number" id="cal-height" placeholder="175" min="100" step="1" oninput="calcCalories()" /><span class="input-suffix">cm</span></div>
+            </div>
+          </div>
+
+          <!-- Activity level -->
+          <div class="form-group">
+            <label for="cal-activity">Activity Level</label>
+            <select id="cal-activity" onchange="calcCalories()">
+              <option value="1.2">Sedentary (office job, little or no exercise)</option>
+              <option value="1.375" selected>Lightly active (1–3 days/week exercise)</option>
+              <option value="1.55">Moderately active (3–5 days/week exercise)</option>
+              <option value="1.725">Very active (6–7 days/week hard exercise)</option>
+              <option value="1.9">Extra active (physical job + hard exercise)</option>
+            </select>
+          </div>
+
+          <!-- Results -->
+          <div class="result-box" id="cal-result" style="display:none;">
+            <div class="result-label">Daily Calorie Need (TDEE)</div>
+            <div class="result-value" id="cal-tdee">—</div>
+            <div class="result-sub" id="cal-bmr-sub"></div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Lose weight (−500 kcal)</span><span class="value" id="cal-lose">—</span></div>
+              <div class="breakdown-row"><span class="label">Maintain weight</span><span class="value" id="cal-maintain">—</span></div>
+              <div class="breakdown-row"><span class="label">Gain weight (+500 kcal)</span><span class="value" id="cal-gain">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetCal()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How Daily Calorie Needs Are Calculated</h2>
+            <p>The Mifflin-St Jeor equation calculates your Basal Metabolic Rate (BMR) — the calories your body burns at complete rest. The BMR is then multiplied by an activity factor to get your Total Daily Energy Expenditure (TDEE).</p>
+            <div class="formula-box">BMR (Male)   = 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5
+BMR (Female) = 10 × weight(kg) + 6.25 × height(cm) − 5 × age − 161
+
+TDEE = BMR × Activity Factor
+
+Activity factors:
+  Sedentary:         × 1.2
+  Lightly active:    × 1.375
+  Moderately active: × 1.55
+  Very active:       × 1.725
+  Extra active:      × 1.9</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — Male, 30 years, 75 kg, 178 cm, moderately active</div>
+              <p>BMR = (10×75) + (6.25×178) − (5×30) + 5</p>
+              <p>BMR = 750 + 1112.5 − 150 + 5 = <strong>1,717.5 kcal/day</strong></p>
+              <p>TDEE = 1717.5 × 1.55 = <strong>2,662 kcal/day</strong></p>
+              <p>To lose ~0.5 kg/week: aim for ~2,162 kcal/day</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">How accurate is this calorie calculator?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The Mifflin-St Jeor equation is considered the most accurate formula for estimating BMR and is the one recommended by the Academy of Nutrition and Dietetics. However, individual metabolism varies. Use the result as a starting point and adjust based on real-world weight changes over 2-4 weeks.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">How many calories should I eat to lose weight?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">A caloric deficit of 500 kcal/day leads to approximately 0.5 kg of fat loss per week (since 1 kg of fat ≈ 7,700 kcal). Most health guidelines recommend not going below 1,200 kcal/day for women and 1,500 kcal/day for men. Rapid weight loss can cause muscle loss and nutritional deficiencies.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What are macros and how do they relate to calories?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Macronutrients (macros) are protein, carbohydrates, and fat. Each gram of protein or carbs provides 4 kcal; each gram of fat provides 9 kcal. A common starting point: 30% protein, 40% carbs, 30% fat. Adjust based on goals — higher protein (35-40%) helps preserve muscle during weight loss.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../bmi/index.html"><span class="rel-icon">⚖️</span> BMI Calculator</a></li>
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Calorie Reference</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>Apple</span><strong style="color:var(--color-text)">~95 kcal</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Banana</span><strong style="color:var(--color-text)">~105 kcal</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Egg (large)</span><strong style="color:var(--color-text)">~78 kcal</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Chicken 100g</span><strong style="color:var(--color-text)">~165 kcal</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Running 30min</span><strong style="color:var(--color-text)">~300 kcal</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Not a substitute for medical advice.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  let sex = 'male';
+  function setSex(s, btn) {
+    sex = s;
+    document.querySelectorAll('#sex-male, #sex-female').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    calcCalories();
+  }
+
+  function calcCalories() {
+    const age = parseFloat(document.getElementById('cal-age').value);
+    const weight = parseFloat(document.getElementById('cal-weight').value);
+    const height = parseFloat(document.getElementById('cal-height').value);
+    const activity = parseFloat(document.getElementById('cal-activity').value);
+    if ([age,weight,height,activity].some(isNaN) || age<=0||weight<=0||height<=0) { document.getElementById('cal-result').style.display='none'; return; }
+
+    let bmr = 10*weight + 6.25*height - 5*age + (sex==='male' ? 5 : -161);
+    const tdee = bmr * activity;
+
+    document.getElementById('cal-result').style.display='';
+    document.getElementById('cal-tdee').textContent = Math.round(tdee) + ' kcal';
+    document.getElementById('cal-bmr-sub').textContent = 'Base metabolic rate (BMR): ' + Math.round(bmr) + ' kcal/day';
+    document.getElementById('cal-lose').textContent = Math.round(tdee - 500) + ' kcal/day';
+    document.getElementById('cal-maintain').textContent = Math.round(tdee) + ' kcal/day';
+    document.getElementById('cal-gain').textContent = Math.round(tdee + 500) + ' kcal/day';
+  }
+
+  function resetCal() {
+    ['cal-age','cal-weight','cal-height'].forEach(id=>{document.getElementById(id).value='';});
+    document.getElementById('cal-activity').selectedIndex=1;
+    document.getElementById('cal-result').style.display='none';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compound Interest Calculator — Free Online Tool | CalcSnap</title>
+  <meta name="description" content="Calculate compound interest with our free online tool. Enter principal, rate, time and compounding frequency. Instant results, no login." />
+  <meta property="og:title" content="Compound Interest Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate compound interest instantly. Free online tool — no login, no ads." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/compound-interest/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Compound Interest Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate compound interest instantly. Free online tool — no login, no ads." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/compound-interest/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Compound Interest Calculator",
+  "url": "https://calcsnap.app/calculators/compound-interest/",
+  "description": "Free online compound interest calculator. Instant results.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#finance">Finance</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Compound Interest Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">📈 Finance · Investing</div>
+      <h1>Compound Interest Calculator</h1>
+      <p>Calculate how your money grows with the power of compounding. Add regular contributions and see your final balance, total interest earned, and growth breakdown.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="ci-principal">Initial Investment</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="ci-principal" placeholder="e.g. 5000" min="0" step="1" oninput="calcCI()" /></div>
+          </div>
+          <div class="form-group">
+            <label for="ci-rate">Annual Interest Rate</label>
+            <div class="input-wrap has-suffix"><input type="number" id="ci-rate" placeholder="e.g. 7" min="0" step="0.01" oninput="calcCI()" /><span class="input-suffix">%</span></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="ci-years">Duration (years)</label>
+              <div class="input-wrap"><input type="number" id="ci-years" placeholder="e.g. 20" min="1" max="100" step="1" oninput="calcCI()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="ci-freq">Compounding frequency</label>
+              <select id="ci-freq" onchange="calcCI()">
+                <option value="12" selected>Monthly</option>
+                <option value="4">Quarterly</option>
+                <option value="2">Semi-annually</option>
+                <option value="1">Annually</option>
+                <option value="365">Daily</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="ci-contrib">Monthly contribution (optional)</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="ci-contrib" placeholder="e.g. 200" min="0" step="1" oninput="calcCI()" /></div>
+          </div>
+
+          <div class="result-box" id="ci-result-box" style="display:none;">
+            <div class="result-label">Final Balance</div>
+            <div class="result-value" id="ci-final">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Initial investment</span><span class="value" id="ci-bd-principal">—</span></div>
+              <div class="breakdown-row"><span class="label">Total contributions</span><span class="value" id="ci-bd-contrib">—</span></div>
+              <div class="breakdown-row"><span class="label">Total interest earned</span><span class="value" id="ci-bd-interest">—</span></div>
+              <div class="breakdown-row"><span class="label">Return on investment</span><span class="value" id="ci-bd-roi">—</span></div>
+            </div>
+          </div>
+
+          <!-- Growth bar -->
+          <div id="ci-bar-wrap" style="display:none;margin-top:var(--space-5);">
+            <div style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-faint);margin-bottom:var(--space-2);">Portfolio composition</div>
+            <div style="height:10px;border-radius:var(--radius-full);background:var(--color-surface-dynamic);overflow:hidden;display:flex;">
+              <div id="bar-principal" style="background:var(--color-primary);transition:width 0.4s ease;height:100%;"></div>
+              <div id="bar-contrib" style="background:color-mix(in oklab, var(--color-primary) 60%, white);transition:width 0.4s ease;height:100%;"></div>
+              <div id="bar-interest" style="background:var(--color-success);transition:width 0.4s ease;height:100%;"></div>
+            </div>
+            <div style="display:flex;gap:var(--space-4);margin-top:var(--space-2);font-size:var(--text-xs);flex-wrap:wrap;">
+              <span style="display:flex;align-items:center;gap:var(--space-1);color:var(--color-text-muted);"><span style="width:10px;height:10px;border-radius:2px;background:var(--color-primary);flex-shrink:0;"></span>Initial</span>
+              <span style="display:flex;align-items:center;gap:var(--space-1);color:var(--color-text-muted);"><span style="width:10px;height:10px;border-radius:2px;background:color-mix(in oklab, var(--color-primary) 60%, white);flex-shrink:0;"></span>Contributions</span>
+              <span style="display:flex;align-items:center;gap:var(--space-1);color:var(--color-text-muted);"><span style="width:10px;height:10px;border-radius:2px;background:var(--color-success);flex-shrink:0;"></span>Interest</span>
+            </div>
+          </div>
+
+          <button class="btn-reset" onclick="resetCI()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How Compound Interest Works</h2>
+            <p>Compound interest means you earn interest on your interest — not just your initial deposit. Over time, this creates an exponential growth curve sometimes called the "8th wonder of the world" (attributed to Albert Einstein).</p>
+            <p>The key variables are: principal (P), annual rate (r), compounding frequency (n), and time in years (t).</p>
+            <div class="formula-box">A = P × (1 + r/n)^(n×t)
+
+A  = Final amount
+P  = Principal (initial investment)
+r  = Annual interest rate (as decimal, e.g. 0.07 for 7%)
+n  = Compounding periods per year
+t  = Time in years</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — €1,000 at 7% for 30 years (monthly compounding)</div>
+              <p>A = 1000 × (1 + 0.07/12)^(12×30)</p>
+              <p>A = 1000 × (1.005833)^360</p>
+              <p>A ≈ <strong>€8,116</strong> — your money grew 8× without adding anything extra!</p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">How often should interest compound for maximum growth?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">More frequent compounding means slightly more growth. Daily compounding earns marginally more than monthly, which earns more than annually. However, the difference between daily and monthly is small. The interest rate and time period matter far more than compounding frequency.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What is the Rule of 72?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The Rule of 72 gives you a quick estimate of how long it takes to double your money: divide 72 by the annual interest rate. At 6%, you double every 12 years. At 9%, every 8 years. It's a mental math shortcut — this calculator gives the exact answer.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What return rate should I use for long-term investing?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The S&P 500 has historically returned about 10% per year on average (7% adjusted for inflation). For conservative estimates, use 5-6%. For aggressive growth estimates, 9-10%. Always remember past performance doesn't guarantee future results.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../loan-payment/index.html"><span class="rel-icon">🏦</span> Loan Payment</a></li>
+            <li><a href="../salary-france/index.html"><span class="rel-icon">💼</span> Salary Net France</a></li>
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../percentage-increase/index.html"><span class="rel-icon">↑%</span> % Increase</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Rule of 72</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>4% rate</span><strong style="color:var(--color-text)">doubles in 18 yrs</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>6% rate</span><strong style="color:var(--color-text)">doubles in 12 yrs</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>8% rate</span><strong style="color:var(--color-text)">doubles in 9 yrs</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>10% rate</span><strong style="color:var(--color-text)">doubles in 7.2 yrs</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  function fmt(n) { return '€' + Math.round(n).toLocaleString('en-US'); }
+  function fmtPct(n) { return n.toLocaleString('en-US', {minimumFractionDigits:1,maximumFractionDigits:1}) + '%'; }
+
+  function calcCI() {
+    const P = parseFloat(document.getElementById('ci-principal').value) || 0;
+    const r = parseFloat(document.getElementById('ci-rate').value);
+    const t = parseFloat(document.getElementById('ci-years').value);
+    const n = parseFloat(document.getElementById('ci-freq').value);
+    const c = parseFloat(document.getElementById('ci-contrib').value) || 0;
+
+    if (isNaN(r) || isNaN(t) || r <= 0 || t <= 0) {
+      document.getElementById('ci-result-box').style.display = 'none';
+      document.getElementById('ci-bar-wrap').style.display = 'none';
+      return;
+    }
+
+    const monthlyRate = r / 100 / 12;
+    const months = t * 12;
+
+    // Compound principal
+    const A_principal = P * Math.pow(1 + r / 100 / n, n * t);
+
+    // Compound contributions (monthly)
+    let A_contrib = 0;
+    if (c > 0 && monthlyRate > 0) {
+      A_contrib = c * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate);
+    } else if (c > 0) {
+      A_contrib = c * months;
+    }
+
+    const total = A_principal + A_contrib;
+    const totalInvested = P + c * months;
+    const interest = total - totalInvested;
+    const roi = totalInvested > 0 ? (interest / totalInvested) * 100 : 0;
+
+    document.getElementById('ci-result-box').style.display = '';
+    document.getElementById('ci-bar-wrap').style.display = '';
+    document.getElementById('ci-final').textContent = fmt(total);
+    document.getElementById('ci-bd-principal').textContent = fmt(P);
+    document.getElementById('ci-bd-contrib').textContent = fmt(c * months);
+    document.getElementById('ci-bd-interest').textContent = fmt(interest);
+    document.getElementById('ci-bd-roi').textContent = '+' + fmtPct(roi);
+
+    // Update bar
+    const pPrin = (A_principal / total) * 100;
+    const pContrib = (A_contrib / total) * 100;
+    const pInt = 100 - pPrin - pContrib;
+    document.getElementById('bar-principal').style.width = pPrin + '%';
+    document.getElementById('bar-contrib').style.width = pContrib + '%';
+    document.getElementById('bar-interest').style.width = Math.max(0, pInt) + '%';
+  }
+
+  function resetCI() {
+    ['ci-principal','ci-rate','ci-years','ci-contrib'].forEach(id => { document.getElementById(id).value = ''; });
+    document.getElementById('ci-freq').selectedIndex = 0;
+    document.getElementById('ci-result-box').style.display = 'none';
+    document.getElementById('ci-bar-wrap').style.display = 'none';
+  }
+</script>
+</body>
+</html>

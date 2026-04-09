@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAT Calculator — Add or Remove VAT by Country | CalcSnap</title>
+  <meta name="description" content="Free VAT calculator for France, Germany, UK, Spain, Belgium and more. Add or remove VAT instantly. No login required." />
+  <meta property="og:title" content="VAT Calculator — CalcSnap" />
+  <meta property="og:description" content="Add or remove VAT for France, Germany, UK, Spain, Belgium and more. Free, instant, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/vat/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="VAT Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Add or remove VAT for France, Germany, UK, Spain, Belgium and more. Free, instant, no login." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/vat/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "VAT Calculator",
+  "url": "https://calcsnap.app/calculators/vat/",
+  "description": "Free online VAT calculator. Supports France, Germany, UK, Spain, Belgium.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+  <style>
+    .hub-search-wrap { position:relative; margin-bottom:var(--space-6); }
+    .hub-search-wrap svg { position:absolute; left:var(--space-4); top:50%; transform:translateY(-50%); color:var(--color-text-muted); pointer-events:none; }
+    .hub-search { width:100%; padding:var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 24px + var(--space-2)); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-base); color:var(--color-text); font-family:var(--font-body); outline:none; transition:border-color 0.15s; }
+    .hub-search:focus { border-color:var(--color-primary); }
+    .hub-search::placeholder { color:var(--color-text-faint); }
+    .country-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:var(--space-4); margin:0 0 var(--space-8); }
+    .country-card { display:flex; align-items:center; gap:var(--space-3); padding:var(--space-4); border:1.5px solid var(--color-border); border-radius:var(--radius-lg); text-decoration:none; color:var(--color-text); background:var(--color-surface); transition:all 0.15s ease; }
+    .country-card:hover { border-color:var(--color-primary); box-shadow:0 4px 16px rgba(59,91,219,0.10); transform:translateY(-2px); }
+    .country-card.hidden { display:none; }
+    .country-card .flag { font-size:2rem; flex-shrink:0; }
+    .country-card-info strong { display:block; font-weight:700; font-size:var(--text-base); }
+    .country-card-info span { font-size:var(--text-sm); color:var(--color-text-muted); }
+    .country-card-arrow { margin-left:auto; color:var(--color-text-muted); flex-shrink:0; }
+    .no-results { display:none; grid-column:1/-1; text-align:center; padding:var(--space-10); color:var(--color-text-muted); font-size:var(--text-base); }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#finance">Finance</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>VAT Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">🌍 Finance · 10 Countries</div>
+      <h1>VAT Calculator by Country</h1>
+      <p>Add or remove VAT for 10 countries. Each page uses the correct local rates, terminology, and reduced rate structure — search or select your country below.</p>
+    </div>
+
+    <!-- Search -->
+    <div class="hub-search-wrap">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="search" class="hub-search" id="vat-search" placeholder="Search a country — e.g. Italy, US, Canada…" oninput="filterVAT()" aria-label="Search VAT countries" />
+    </div>
+
+    <!-- Country grid -->
+    <div class="country-grid" id="vat-grid">
+      <a href="us/index.html" class="country-card" data-name="united states us america sales tax">
+        <span class="flag">🇺🇸</span>
+        <div class="country-card-info"><strong>United States — Sales Tax</strong><span>0–10.25% · varies by state</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="canada/index.html" class="country-card" data-name="canada gst hst pst">
+        <span class="flag">🇨🇦</span>
+        <div class="country-card-info"><strong>Canada — GST/HST</strong><span>5% GST · up to 15% HST by province</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="france/index.html" class="country-card" data-name="france tva french">
+        <span class="flag">🇫🇷</span>
+        <div class="country-card-info"><strong>France — TVA</strong><span>20% · 10% · 5.5% · 2.1%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="germany/index.html" class="country-card" data-name="germany deutschland mwst ust mehrwertsteuer">
+        <span class="flag">🇩🇪</span>
+        <div class="country-card-info"><strong>Germany — MwSt</strong><span>19% · 7%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="uk/index.html" class="country-card" data-name="uk united kingdom britain england vat">
+        <span class="flag">🇬🇧</span>
+        <div class="country-card-info"><strong>United Kingdom — VAT</strong><span>20% · 5% · 0%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="spain/index.html" class="country-card" data-name="spain españa iva spanish">
+        <span class="flag">🇪🇸</span>
+        <div class="country-card-info"><strong>Spain — IVA</strong><span>21% · 10% · 4%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="belgium/index.html" class="country-card" data-name="belgium belgique btw tva belgie">
+        <span class="flag">🇧🇪</span>
+        <div class="country-card-info"><strong>Belgium — BTW/TVA</strong><span>21% · 12% · 6%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="italy/index.html" class="country-card" data-name="italy italia iva italian">
+        <span class="flag">🇮🇹</span>
+        <div class="country-card-info"><strong>Italy — IVA</strong><span>22% · 10% · 5% · 4%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="netherlands/index.html" class="country-card" data-name="netherlands nederland btw dutch holland">
+        <span class="flag">🇳🇱</span>
+        <div class="country-card-info"><strong>Netherlands — BTW</strong><span>21% · 9%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <a href="portugal/index.html" class="country-card" data-name="portugal iva portuguese">
+        <span class="flag">🇵🇹</span>
+        <div class="country-card-info"><strong>Portugal — IVA</strong><span>23% · 13% · 6%</span></div>
+        <svg class="country-card-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </a>
+      <div class="no-results" id="vat-no-results">No country found. Try a different search.</div>
+    </div>
+
+    <!-- Rate comparison table -->
+    <article>
+      <div class="content-section">
+        <h2>VAT & Sales Tax Rates by Country</h2>
+        <p>Value Added Tax (VAT) applies across the EU and UK, but rates and names differ by country. The US uses a state-level sales tax system instead. Here's a quick reference for all 10 countries.</p>
+        <div style="overflow-x:auto;margin:var(--space-5) 0;">
+          <table style="width:100%;border-collapse:collapse;font-size:var(--text-sm);">
+            <thead>
+              <tr style="background:var(--color-surface-offset);text-align:left;">
+                <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Country</th>
+                <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Local Name</th>
+                <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Standard Rate</th>
+                <th style="padding:var(--space-3) var(--space-4);font-weight:700;border-bottom:2px solid var(--color-border);">Reduced Rates</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇺🇸 United States</td><td style="padding:var(--space-3) var(--space-4);">Sales Tax</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">0–10.25%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Varies by state/county</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇨🇦 Canada</td><td style="padding:var(--space-3) var(--space-4);">GST / HST</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">5–15%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">Varies by province</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇫🇷 France</td><td style="padding:var(--space-3) var(--space-4);">TVA</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">20%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">10% · 5.5% · 2.1%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇩🇪 Germany</td><td style="padding:var(--space-3) var(--space-4);">MwSt / USt</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">19%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">7%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇬🇧 United Kingdom</td><td style="padding:var(--space-3) var(--space-4);">VAT</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">20%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">5% · 0%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇪🇸 Spain</td><td style="padding:var(--space-3) var(--space-4);">IVA</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">21%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">10% · 4%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇧🇪 Belgium</td><td style="padding:var(--space-3) var(--space-4);">BTW / TVA</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">21%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">12% · 6%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇮🇹 Italy</td><td style="padding:var(--space-3) var(--space-4);">IVA</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">22%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">10% · 5% · 4%</td></tr>
+              <tr style="border-bottom:1px solid var(--color-divider);"><td style="padding:var(--space-3) var(--space-4);">🇳🇱 Netherlands</td><td style="padding:var(--space-3) var(--space-4);">BTW</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">21%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">9%</td></tr>
+              <tr><td style="padding:var(--space-3) var(--space-4);">🇵🇹 Portugal</td><td style="padding:var(--space-3) var(--space-4);">IVA</td><td style="padding:var(--space-3) var(--space-4);font-weight:700;color:var(--color-primary);">23%</td><td style="padding:var(--space-3) var(--space-4);color:var(--color-text-muted);">13% · 6%</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="formula-box">Add VAT:    Price incl. VAT = Net price × (1 + VAT rate / 100)
+Remove VAT: Net price = Gross price / (1 + VAT rate / 100)
+VAT amount: VAT = Gross price − Net price</div>
+
+        <div class="content-section">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq-list">
+            <div class="faq-item">
+              <button class="faq-question">What is VAT and how does it work?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="faq-answer">VAT (Value Added Tax) is a consumption tax applied at each stage of production and distribution. Businesses collect VAT from customers and pay it to the tax authority, minus the VAT they paid on their own purchases. The end consumer bears the full tax. The US uses a different system called sales tax, applied only at the point of final sale.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Which country has the highest VAT in Europe?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="faq-answer">Hungary has the highest standard VAT rate in the EU at 27%. Among the countries covered here, Portugal leads at 23%, followed by Italy at 22%, then Spain, Belgium, and the Netherlands at 21%.</div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-question">Can I reclaim VAT as a business?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="faq-answer">Yes — VAT-registered businesses can reclaim the VAT they paid on business purchases (input VAT) by offsetting it against the VAT they charged customers (output VAT). The net difference is either paid to or refunded by the tax authority. US sales tax generally cannot be reclaimed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  function filterVAT() {
+    const q = document.getElementById('vat-search').value.toLowerCase().trim();
+    const cards = document.querySelectorAll('#vat-grid .country-card');
+    let visible = 0;
+    cards.forEach(card => {
+      const name = card.getAttribute('data-name') || '';
+      const text = card.textContent.toLowerCase();
+      const match = !q || name.includes(q) || text.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+    document.getElementById('vat-no-results').style.display = visible === 0 ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>

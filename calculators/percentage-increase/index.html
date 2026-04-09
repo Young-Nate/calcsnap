@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Increase Calculator — Free Online Tool | CalcSnap</title>
+  <meta name="description" content="Calculate percentage increase or decrease between two numbers. Free online tool — instant results, no login." />
+  <meta property="og:title" content="Percentage Increase Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate the percentage increase or decrease between two values. Fast, free, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/percentage-increase/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Percentage Increase Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate the percentage increase or decrease between two values. Fast, free, no login." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/percentage-increase/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Percentage Increase Calculator",
+  "url": "https://calcsnap.app/calculators/percentage-increase/",
+  "description": "Free online percentage increase and decrease calculator.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#finance">Finance</a></li><li><a href="../../index.html#utility">Utility</a></li><li><a href="../../index.html#lifestyle">Lifestyle</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Percentage Increase Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">Finance Calculator</div>
+      <h1>Percentage Increase / Decrease Calculator</h1>
+      <p>Calculate the percentage change between two values, or find the new value after applying a percentage increase or decrease.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;" role="tablist">
+            <button class="cat-tab active" onclick="switchTab(1,this)">% Change</button>
+            <button class="cat-tab" onclick="switchTab(2,this)">New Value</button>
+          </div>
+
+          <!-- Tab 1: % change -->
+          <div id="tab-panel-1">
+            <div class="form-group">
+              <label for="t1-old">Original value</label>
+              <div class="input-wrap"><input type="number" id="t1-old" placeholder="e.g. 80" step="any" oninput="calcChange()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="t1-new">New value</label>
+              <div class="input-wrap"><input type="number" id="t1-new" placeholder="e.g. 100" step="any" oninput="calcChange()" /></div>
+            </div>
+            <div class="result-box">
+              <div class="result-label">Percentage Change</div>
+              <div class="result-value" id="r-change">—</div>
+              <div class="result-sub" id="r-change-sub"></div>
+            </div>
+          </div>
+
+          <!-- Tab 2: new value -->
+          <div id="tab-panel-2" style="display:none;">
+            <div class="form-group">
+              <label for="t2-base">Original value</label>
+              <div class="input-wrap"><input type="number" id="t2-base" placeholder="e.g. 200" step="any" oninput="calcNewValue()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="t2-pct">Percentage change (%)</label>
+              <div class="input-wrap has-suffix"><input type="number" id="t2-pct" placeholder="e.g. 25" step="any" oninput="calcNewValue()" /><span class="input-suffix">%</span></div>
+              <p class="hint" style="margin-top:var(--space-2);font-size:var(--text-xs);color:var(--color-text-muted)">Use negative values for a decrease (e.g. -15 for -15%)</p>
+            </div>
+            <div class="result-box">
+              <div class="result-label">New Value</div>
+              <div class="result-value" id="r-new">—</div>
+              <div class="result-breakdown" id="r-new-breakdown" style="display:none;">
+                <div class="breakdown-row"><span class="label">Original</span><span class="value" id="r-new-orig">—</span></div>
+                <div class="breakdown-row"><span class="label">Change amount</span><span class="value" id="r-new-diff">—</span></div>
+                <div class="breakdown-row"><span class="label">New value</span><span class="value" id="r-new-final">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <button class="btn-reset" onclick="resetPct()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Percentage Increase Formula</h2>
+            <p>The percentage change between two values tells you how much something grew or shrunk relative to the original. It's used for comparing prices, salaries, stock returns, and any measurement over time.</p>
+            <div class="formula-box">% Change = ((New Value − Old Value) / |Old Value|) × 100
+
+New Value = Old Value × (1 + Change% / 100)</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — Price from €80 to €100</div>
+              <p>Change = ((100 − 80) / 80) × 100 = <strong>+25%</strong></p>
+              <p>The price increased by <strong>25%</strong>.</p>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">Example — Applying a 30% increase to 500</div>
+              <p>New Value = 500 × (1 + 0.30) = 500 × 1.30 = <strong>650</strong></p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the difference between percentage increase and markup?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Both measure a percentage difference, but the base differs. Percentage increase is based on the original value. Markup in retail is typically based on cost price. They give the same result when the base is the same, but can diverge in business contexts.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Why is a 50% increase followed by a 50% decrease not 0%?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Because the base changes. Start with 100: +50% → 150. Then −50% of 150 → 75. You end up at 75, not 100. This asymmetry is crucial to understand in investing and pricing.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">How do I calculate a percentage decrease?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Same formula as increase. If the result is negative, it's a decrease. Example: from 100 to 75 → ((75−100)/100)×100 = −25%. A 25% decrease.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../discount/index.html"><span class="rel-icon">🏷️</span> Discount Calculator</a></li>
+            <li><a href="../profit-margin/index.html"><span class="rel-icon">📊</span> Profit Margin</a></li>
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France</a></li>
+            <li><a href="../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Common % Changes</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>+10% of 1000</span><strong style="color:var(--color-text)">= 1100</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>+25% of 1000</span><strong style="color:var(--color-text)">= 1250</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>-20% of 1000</span><strong style="color:var(--color-text)">= 800</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>-50% of 1000</span><strong style="color:var(--color-text)">= 500</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+
+<script src="../../js/faq.js"></script>
+<script>
+  let activeTab = 1;
+  function switchTab(n, btn) {
+    activeTab = n;
+    document.getElementById('tab-panel-1').style.display = n === 1 ? '' : 'none';
+    document.getElementById('tab-panel-2').style.display = n === 2 ? '' : 'none';
+    document.querySelectorAll('.tool-card .cat-tab').forEach((t, i) => t.classList.toggle('active', i === n - 1));
+  }
+
+  function fmt(n, dec = 2) {
+    if (!isFinite(n)) return '—';
+    return n.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: dec});
+  }
+
+  function calcChange() {
+    const old = parseFloat(document.getElementById('t1-old').value);
+    const nw = parseFloat(document.getElementById('t1-new').value);
+    if (isNaN(old) || isNaN(nw) || old === 0) { document.getElementById('r-change').textContent = '—'; document.getElementById('r-change-sub').textContent = ''; return; }
+    const ch = ((nw - old) / Math.abs(old)) * 100;
+    const sign = ch >= 0 ? '+' : '';
+    document.getElementById('r-change').textContent = sign + fmt(ch) + '%';
+    document.getElementById('r-change-sub').textContent = (ch >= 0 ? 'Increase' : 'Decrease') + ' of ' + Math.abs(fmt(nw - old)) + ' (' + sign + fmt(ch) + '%)';
+  }
+
+  function calcNewValue() {
+    const base = parseFloat(document.getElementById('t2-base').value);
+    const pct = parseFloat(document.getElementById('t2-pct').value);
+    if (isNaN(base) || isNaN(pct)) { document.getElementById('r-new').textContent = '—'; document.getElementById('r-new-breakdown').style.display = 'none'; return; }
+    const diff = base * (pct / 100);
+    const nw = base + diff;
+    document.getElementById('r-new').textContent = fmt(nw, 4);
+    document.getElementById('r-new-breakdown').style.display = '';
+    document.getElementById('r-new-orig').textContent = fmt(base, 4);
+    document.getElementById('r-new-diff').textContent = (diff >= 0 ? '+' : '') + fmt(diff, 4);
+    document.getElementById('r-new-final').textContent = fmt(nw, 4);
+  }
+
+  function resetPct() {
+    ['t1-old','t1-new','t2-base','t2-pct'].forEach(id => { const el = document.getElementById(id); if(el) el.value = ''; });
+    document.getElementById('r-change').textContent = '—';
+    document.getElementById('r-change-sub').textContent = '';
+    document.getElementById('r-new').textContent = '—';
+    document.getElementById('r-new-breakdown').style.display = 'none';
+  }
+</script>
+</body>
+</html>

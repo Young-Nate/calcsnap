@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Discount Calculator — Find Sale Price | CalcSnap</title>
+  <meta name="description" content="Calculate the sale price after a percentage discount. Free online discount calculator — instant results, no login." />
+  <meta property="og:title" content="Discount Calculator — CalcSnap" />
+  <meta property="og:description" content="Find the final price after a discount. Free online calculator — fast, accurate, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/discount/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Discount Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Find the final price after a discount. Free online calculator — fast, accurate, no login." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/discount/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Discount Calculator",
+  "url": "https://calcsnap.app/calculators/discount/",
+  "description": "Free online discount and sale price calculator.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#utility">Utility</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Discount Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">🏷️ Utility Calculator</div>
+      <h1>Discount Calculator</h1>
+      <p>Find the final sale price after any discount, calculate how much you save, or find the original price from a discounted price and percentage.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="d-orig">Original Price</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="d-orig" placeholder="e.g. 150.00" min="0" step="0.01" oninput="calcDiscount()" /></div>
+          </div>
+          <div class="form-group">
+            <label for="d-pct">Discount (%)</label>
+            <div style="display:flex;align-items:center;gap:var(--space-3);">
+              <div class="input-wrap has-suffix" style="flex:1"><input type="number" id="d-pct" placeholder="e.g. 30" min="0" max="100" step="0.1" oninput="syncSlider(); calcDiscount();" /><span class="input-suffix">%</span></div>
+            </div>
+            <input type="range" id="d-slider" min="0" max="100" step="1" value="0" oninput="syncInput(); calcDiscount();" />
+            <div class="slider-labels"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span></div>
+          </div>
+
+          <!-- Quick preset buttons -->
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-5);">
+            <button class="cat-tab" style="padding:var(--space-1) var(--space-3);font-size:var(--text-xs);" onclick="setPct(10)">-10%</button>
+            <button class="cat-tab" style="padding:var(--space-1) var(--space-3);font-size:var(--text-xs);" onclick="setPct(20)">-20%</button>
+            <button class="cat-tab" style="padding:var(--space-1) var(--space-3);font-size:var(--text-xs);" onclick="setPct(30)">-30%</button>
+            <button class="cat-tab" style="padding:var(--space-1) var(--space-3);font-size:var(--text-xs);" onclick="setPct(50)">-50%</button>
+            <button class="cat-tab" style="padding:var(--space-1) var(--space-3);font-size:var(--text-xs);" onclick="setPct(70)">-70%</button>
+          </div>
+
+          <div class="result-box" id="disc-result" style="display:none;">
+            <div class="result-label">Sale Price</div>
+            <div class="result-value" id="d-sale">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Original price</span><span class="value" id="d-bd-orig">—</span></div>
+              <div class="breakdown-row"><span class="label">Discount amount</span><span class="value" id="d-bd-saving" style="color:var(--color-success);">—</span></div>
+              <div class="breakdown-row"><span class="label">Final price</span><span class="value" id="d-bd-final">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetDisc()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How to Calculate a Discount</h2>
+            <p>A discount reduces the original price by a percentage. The formula is simple — multiply the original price by the discount percentage and subtract the result.</p>
+            <div class="formula-box">Discount Amount = Original Price × (Discount% / 100)
+Sale Price = Original Price − Discount Amount
+Sale Price = Original Price × (1 − Discount% / 100)</div>
+            <div class="example-box">
+              <div class="example-title">Example — €200 item with 30% discount</div>
+              <p>Discount = 200 × 0.30 = <strong>€60 saved</strong></p>
+              <p>Sale Price = 200 − 60 = <strong>€140 final price</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Is a 50% discount then another 50% discount a total of 100%?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">No. Stacked discounts don't add up. If an item is €100: first 50% off → €50. Then 50% off €50 → €25. The combined effect is 75% off the original, not 100%. Always apply discounts sequentially to the current price.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">How do I find the original price from a sale price?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Original = Sale Price ÷ (1 − Discount%). Example: item is €70 after a 30% discount. Original = 70 ÷ 0.70 = €100.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What's the best time to find large discounts?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">In France: the soldes (official sales) happen twice a year — January and July — and are legally regulated. Black Friday (late November) offers year-round discounts. End of season offers the best clearance deals. Flash sales and promo codes are available year-round from most retailers.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../profit-margin/index.html"><span class="rel-icon">📊</span> Profit Margin</a></li>
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France</a></li>
+            <li><a href="../percentage-increase/index.html"><span class="rel-icon">↑%</span> % Increase</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>You save at...</h3>
+          <div id="quick-table" style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>10% off €100</span><strong style="color:var(--color-text)">= €90</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>20% off €100</span><strong style="color:var(--color-text)">= €80</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>30% off €100</span><strong style="color:var(--color-text)">= €70</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>50% off €100</span><strong style="color:var(--color-text)">= €50</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>75% off €100</span><strong style="color:var(--color-text)">= €25</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Results are for informational purposes only.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  function syncSlider() {
+    const v = document.getElementById('d-pct').value;
+    document.getElementById('d-slider').value = v || 0;
+  }
+  function syncInput() {
+    document.getElementById('d-pct').value = document.getElementById('d-slider').value;
+  }
+  function setPct(v) {
+    document.getElementById('d-pct').value = v;
+    document.getElementById('d-slider').value = v;
+    calcDiscount();
+  }
+  function fmt(n) { return '€' + n.toLocaleString('en-US', {minimumFractionDigits:2,maximumFractionDigits:2}); }
+  function calcDiscount() {
+    const orig = parseFloat(document.getElementById('d-orig').value);
+    const pct = parseFloat(document.getElementById('d-pct').value);
+    if (isNaN(orig) || isNaN(pct)) { document.getElementById('disc-result').style.display='none'; return; }
+    const saving = orig * (pct / 100);
+    const sale = orig - saving;
+    document.getElementById('disc-result').style.display = '';
+    document.getElementById('d-sale').textContent = fmt(sale);
+    document.getElementById('d-bd-orig').textContent = fmt(orig);
+    document.getElementById('d-bd-saving').textContent = '−' + fmt(saving);
+    document.getElementById('d-bd-final').textContent = fmt(sale);
+  }
+  function resetDisc() {
+    document.getElementById('d-orig').value = '';
+    document.getElementById('d-pct').value = '';
+    document.getElementById('d-slider').value = 0;
+    document.getElementById('disc-result').style.display = 'none';
+  }
+</script>
+</body>
+</html>

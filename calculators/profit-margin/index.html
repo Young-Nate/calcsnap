@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profit Margin Calculator — Gross Margin & Markup | CalcSnap</title>
+  <meta name="description" content="Calculate gross profit margin and markup percentage. Free online profit margin calculator — instant results, no login." />
+  <meta property="og:title" content="Profit Margin Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate gross margin and markup percentage instantly. Free online profit margin calculator." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/profit-margin/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Profit Margin Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate gross margin and markup percentage instantly. Free online profit margin calculator." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/profit-margin/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Profit Margin Calculator",
+  "url": "https://calcsnap.app/calculators/profit-margin/",
+  "description": "Free online profit margin and markup calculator.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#utility">Utility</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Profit Margin Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">📊 Utility · Business</div>
+      <h1>Profit Margin Calculator</h1>
+      <p>Calculate gross profit margin, markup percentage, and profit amount from cost and selling price. Essential for pricing and business decisions.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);" role="tablist">
+            <button class="cat-tab active" onclick="switchPM(1,this)">From Cost + Revenue</button>
+            <button class="cat-tab" onclick="switchPM(2,this)">From Margin %</button>
+          </div>
+
+          <!-- Mode 1: Cost + Revenue -->
+          <div id="pm-mode-1">
+            <div class="form-group">
+              <label for="pm-cost">Cost Price (Prix de revient)</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="pm-cost" placeholder="e.g. 60" min="0" step="0.01" oninput="calcPM()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="pm-rev">Selling Price (Prix de vente)</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="pm-rev" placeholder="e.g. 100" min="0" step="0.01" oninput="calcPM()" /></div>
+            </div>
+          </div>
+
+          <!-- Mode 2: From margin % -->
+          <div id="pm-mode-2" style="display:none;">
+            <div class="form-group">
+              <label for="pm2-cost">Cost Price</label>
+              <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="pm2-cost" placeholder="e.g. 60" min="0" step="0.01" oninput="calcPM2()" /></div>
+            </div>
+            <div class="form-group">
+              <label for="pm2-margin">Target Margin (%)</label>
+              <div class="input-wrap has-suffix"><input type="number" id="pm2-margin" placeholder="e.g. 40" min="0" max="99.99" step="0.01" oninput="calcPM2()" /><span class="input-suffix">%</span></div>
+            </div>
+          </div>
+
+          <div class="result-box" id="pm-result" style="display:none;">
+            <div class="result-label">Gross Profit Margin</div>
+            <div class="result-value" id="pm-margin-val">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Revenue</span><span class="value" id="pm-bd-rev">—</span></div>
+              <div class="breakdown-row"><span class="label">Cost</span><span class="value" id="pm-bd-cost">—</span></div>
+              <div class="breakdown-row"><span class="label">Gross profit</span><span class="value" id="pm-bd-profit" style="color:var(--color-success);">—</span></div>
+              <div class="breakdown-row"><span class="label">Markup %</span><span class="value" id="pm-bd-markup">—</span></div>
+            </div>
+          </div>
+          <button class="btn-reset" onclick="resetPM()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Margin vs. Markup — What's the Difference?</h2>
+            <p>Margin and markup both describe profitability, but they use different bases for calculation. Confusing them is one of the most common business pricing mistakes.</p>
+            <div class="formula-box">Gross Profit = Revenue − Cost
+
+Margin  = (Profit / Revenue) × 100  ← based on revenue
+Markup  = (Profit / Cost) × 100     ← based on cost
+
+Selling Price from Margin: Revenue = Cost / (1 − Margin%)
+Selling Price from Markup: Revenue = Cost × (1 + Markup%)</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — Cost €60, Selling Price €100</div>
+              <p>Gross Profit = 100 − 60 = <strong>€40</strong></p>
+              <p>Margin = (40 / 100) × 100 = <strong>40%</strong></p>
+              <p>Markup = (40 / 60) × 100 = <strong>66.7%</strong></p>
+              <p>A 40% margin is NOT the same as a 40% markup. The margin is always lower than the markup for the same product.</p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is a good profit margin?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">It depends heavily on the industry. Software/SaaS: 60-90% gross margin. Retail: 20-50%. Restaurants: 3-9%. Professional services: 25-50%. Manufacturing: 25-40%. Always compare within your industry. A 5% margin in retail is normal; in software it would signal serious problems.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">How do I price a product for a specific margin?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Use the formula: Selling Price = Cost ÷ (1 − Desired Margin%). For a 40% margin on a €60 cost item: Price = 60 ÷ 0.60 = €100. Use Mode 2 (From Margin %) in this calculator to find the selling price automatically.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Does this include VAT (TVA)?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">This calculator works on HT (excluding tax) prices, which is how businesses should calculate margins. If you're working with TTC prices, remove the TVA first using our VAT France calculator, then calculate your margin on the HT values.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../discount/index.html"><span class="rel-icon">🏷️</span> Discount Calculator</a></li>
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France</a></li>
+            <li><a href="../percentage-increase/index.html"><span class="rel-icon">↑%</span> % Increase</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Margin by Industry</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>SaaS</span><strong style="color:var(--color-text)">60–90%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>E-commerce</span><strong style="color:var(--color-text)">20–50%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Services</span><strong style="color:var(--color-text)">25–50%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Restaurant</span><strong style="color:var(--color-text)">3–9%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Manufacturing</span><strong style="color:var(--color-text)">25–40%</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  let pmMode = 1;
+  function switchPM(n, btn) {
+    pmMode = n;
+    document.getElementById('pm-mode-1').style.display = n===1?'':'none';
+    document.getElementById('pm-mode-2').style.display = n===2?'':'none';
+    document.querySelectorAll('.tool-card .cat-tab').forEach((t,i)=>t.classList.toggle('active',i===n-1));
+    document.getElementById('pm-result').style.display='none';
+  }
+  function fmt(n,d=2){return '€'+n.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});}
+  function fmtPct(n){return n.toLocaleString('en-US',{minimumFractionDigits:1,maximumFractionDigits:2})+'%';}
+
+  function showResult(cost, rev) {
+    const profit = rev - cost;
+    const margin = (profit / rev) * 100;
+    const markup = cost > 0 ? (profit / cost) * 100 : 0;
+    document.getElementById('pm-result').style.display='';
+    document.getElementById('pm-margin-val').textContent = fmtPct(margin);
+    document.getElementById('pm-bd-rev').textContent = fmt(rev);
+    document.getElementById('pm-bd-cost').textContent = fmt(cost);
+    document.getElementById('pm-bd-profit').textContent = '+'+fmt(profit);
+    document.getElementById('pm-bd-markup').textContent = fmtPct(markup);
+  }
+
+  function calcPM() {
+    const cost = parseFloat(document.getElementById('pm-cost').value);
+    const rev = parseFloat(document.getElementById('pm-rev').value);
+    if (isNaN(cost)||isNaN(rev)||rev<=0) { document.getElementById('pm-result').style.display='none'; return; }
+    showResult(cost, rev);
+  }
+
+  function calcPM2() {
+    const cost = parseFloat(document.getElementById('pm2-cost').value);
+    const margin = parseFloat(document.getElementById('pm2-margin').value);
+    if (isNaN(cost)||isNaN(margin)||margin>=100) { document.getElementById('pm-result').style.display='none'; return; }
+    const rev = cost / (1 - margin / 100);
+    showResult(cost, rev);
+  }
+
+  function resetPM() {
+    ['pm-cost','pm-rev','pm2-cost','pm2-margin'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+    document.getElementById('pm-result').style.display='none';
+  }
+</script>
+</body>
+</html>

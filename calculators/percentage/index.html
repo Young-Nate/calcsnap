@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Percentage Calculator — Free Online Tool | CalcSnap</title>
+  <meta name="description" content="Free percentage calculator. Find what percent X is of Y, calculate the value of a percentage, or find the base number. Instant results, no login." />
+  <meta property="og:title" content="Percentage Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate percentages instantly. What is X% of Y? What percent is X of Y? Fast, free, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/percentage/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Percentage Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate percentages instantly. What is X% of Y? What percent is X of Y? Fast, free, no login." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/percentage/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Percentage Calculator",
+  "url": "https://calcsnap.app/calculators/percentage/",
+  "description": "Free online percentage calculator. Instant results.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo" aria-label="CalcSnap home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/>
+        <rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/>
+        <rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/>
+      </svg>
+      Calc<span class="logo-dot">Snap</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="../../index.html">All Calculators</a></li>
+        <li><a href="../../index.html#finance">Finance</a></li>
+        <li><a href="../../index.html#utility">Utility</a></li>
+        <li><a href="../../index.html#lifestyle">Lifestyle</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      
+    </div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="../../index.html">Home</a>
+      <span aria-hidden="true">›</span>
+      <span aria-current="page">Percentage Calculator</span>
+    </nav>
+
+    <!-- Page header -->
+    <div class="calc-header">
+      <div class="calc-tag">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>
+        Finance Calculator
+      </div>
+      <h1>Percentage Calculator</h1>
+      <p>Find what percent one number is of another, calculate the value of a percentage, or find the original number. Three modes, instant results.</p>
+    </div>
+
+    <div class="calc-layout">
+      <!-- LEFT: Tool -->
+      <div>
+        <div class="tool-card">
+          <!-- Mode tabs -->
+          <div style="display:flex;gap:var(--space-2);margin-bottom:var(--space-6);flex-wrap:wrap;" role="tablist">
+            <button class="cat-tab active" id="tab-1" role="tab" aria-selected="true" onclick="switchMode(1)">% of a number</button>
+            <button class="cat-tab" id="tab-2" role="tab" aria-selected="false" onclick="switchMode(2)">X is what % of Y</button>
+            <button class="cat-tab" id="tab-3" role="tab" aria-selected="false" onclick="switchMode(3)">% change</button>
+          </div>
+
+          <!-- Mode 1: What is X% of Y? -->
+          <div id="mode-1">
+            <div class="form-group">
+              <label for="m1-percent">Percentage (%)</label>
+              <div class="input-wrap has-suffix">
+                <input type="number" id="m1-percent" placeholder="e.g. 25" min="0" step="any" oninput="calcMode1()" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="m1-total">of what number?</label>
+              <div class="input-wrap">
+                <input type="number" id="m1-total" placeholder="e.g. 200" min="0" step="any" oninput="calcMode1()" />
+              </div>
+            </div>
+            <div class="result-box" id="result-1">
+              <div class="result-label">Result</div>
+              <div class="result-value" id="r1-value">—</div>
+              <div class="result-sub" id="r1-sub"></div>
+            </div>
+          </div>
+
+          <!-- Mode 2: X is what % of Y? -->
+          <div id="mode-2" style="display:none;">
+            <div class="form-group">
+              <label for="m2-part">Value (X)</label>
+              <div class="input-wrap">
+                <input type="number" id="m2-part" placeholder="e.g. 50" min="0" step="any" oninput="calcMode2()" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="m2-total">Total (Y)</label>
+              <div class="input-wrap">
+                <input type="number" id="m2-total" placeholder="e.g. 200" min="0" step="any" oninput="calcMode2()" />
+              </div>
+            </div>
+            <div class="result-box" id="result-2">
+              <div class="result-label">Result</div>
+              <div class="result-value" id="r2-value">—</div>
+              <div class="result-sub" id="r2-sub"></div>
+            </div>
+          </div>
+
+          <!-- Mode 3: % change -->
+          <div id="mode-3" style="display:none;">
+            <div class="form-group">
+              <label for="m3-from">Original value</label>
+              <div class="input-wrap">
+                <input type="number" id="m3-from" placeholder="e.g. 80" min="0" step="any" oninput="calcMode3()" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="m3-to">New value</label>
+              <div class="input-wrap">
+                <input type="number" id="m3-to" placeholder="e.g. 100" step="any" oninput="calcMode3()" />
+              </div>
+            </div>
+            <div class="result-box" id="result-3">
+              <div class="result-label">Result</div>
+              <div class="result-value" id="r3-value">—</div>
+              <div class="result-sub" id="r3-sub"></div>
+            </div>
+          </div>
+
+          <button class="btn-reset" onclick="resetAll()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            Reset
+          </button>
+        </div>
+
+        <!-- SEO Content -->
+        <article>
+          <div class="content-section">
+            <h2>How to Calculate a Percentage</h2>
+            <p>A percentage is a fraction expressed as a part of 100. The word "percent" means "per hundred." Percentages are used everywhere — from discounts and taxes to statistics and grades.</p>
+
+            <div class="formula-box">What is P% of X?
+  Result = (P / 100) × X
+
+X is what % of Y?
+  Result = (X / Y) × 100
+
+% Change from A to B?
+  Result = ((B − A) / A) × 100</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — What is 20% of 150?</div>
+              <p>Step 1: Convert 20% to decimal → <strong>0.20</strong></p>
+              <p>Step 2: Multiply → <strong>0.20 × 150 = 30</strong></p>
+              <p>Answer: <strong>20% of 150 is 30</strong></p>
+            </div>
+
+            <div class="example-box">
+              <div class="example-title">Example — 45 is what % of 180?</div>
+              <p>Step 1: Divide → <strong>45 ÷ 180 = 0.25</strong></p>
+              <p>Step 2: Multiply by 100 → <strong>0.25 × 100 = 25</strong></p>
+              <p>Answer: <strong>45 is 25% of 180</strong></p>
+            </div>
+          </div>
+
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">
+                  How do I calculate percentage in my head?
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">A quick trick: for 10%, move the decimal point one place to the left (e.g. 10% of 250 = 25). For 5%, halve the 10% result. For 25%, divide by 4. For 50%, divide by 2. Combining these tricks handles most common cases.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">
+                  What is the difference between percentage and percentage points?
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">A percentage point is an absolute difference between two percentages. If interest rates go from 3% to 5%, that is a 2 percentage point increase, but a 66.7% relative increase. This distinction matters in finance and statistics.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">
+                  Why does percentage increase and decrease not give the same result?
+                  <svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <div class="faq-answer">Because the base number changes. Increasing 100 by 50% gives 150. Decreasing 150 by 50% gives 75, not 100. The base for the increase was 100; the base for the decrease was 150. Always note what the percentage is applied to.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- RIGHT: Sidebar -->
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list" role="list">
+            <li><a href="../percentage-increase/index.html"><span class="rel-icon">↑%</span> Percentage Increase</a></li>
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France</a></li>
+            <li><a href="../discount/index.html"><span class="rel-icon">🏷️</span> Discount Calculator</a></li>
+            <li><a href="../profit-margin/index.html"><span class="rel-icon">📊</span> Profit Margin</a></li>
+            <li><a href="../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+            <li><a href="../loan-payment/index.html"><span class="rel-icon">🏦</span> Loan Payment</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-widget">
+          <h3>Quick Reference</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2;">
+            <div style="display:flex;justify-content:space-between;"><span>1% of 100</span><strong style="color:var(--color-text)">= 1</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>10% of 100</span><strong style="color:var(--color-text)">= 10</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>25% of 100</span><strong style="color:var(--color-text)">= 25</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>50% of 100</span><strong style="color:var(--color-text)">= 50</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>75% of 100</span><strong style="color:var(--color-text)">= 75</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container container--wide">
+    <div class="footer-bottom">
+      <p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p>
+      <p>Results are for informational purposes only.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../../js/faq.js"></script>
+<script>
+  let currentMode = 1;
+
+  function switchMode(n) {
+    currentMode = n;
+    [1,2,3].forEach(i => {
+      document.getElementById('mode-' + i).style.display = i === n ? '' : 'none';
+      const tab = document.getElementById('tab-' + i);
+      tab.classList.toggle('active', i === n);
+      tab.setAttribute('aria-selected', i === n ? 'true' : 'false');
+    });
+  }
+
+  function fmt(n) {
+    if (!isFinite(n)) return '—';
+    if (Number.isInteger(n) || Math.abs(n) > 1000) return n.toLocaleString('en-US', {maximumFractionDigits: 4});
+    return n.toLocaleString('en-US', {maximumFractionDigits: 6});
+  }
+
+  function calcMode1() {
+    const p = parseFloat(document.getElementById('m1-percent').value);
+    const total = parseFloat(document.getElementById('m1-total').value);
+    if (isNaN(p) || isNaN(total)) { document.getElementById('r1-value').textContent = '—'; document.getElementById('r1-sub').textContent = ''; return; }
+    const result = (p / 100) * total;
+    document.getElementById('r1-value').textContent = fmt(result);
+    document.getElementById('r1-sub').textContent = p + '% of ' + fmt(total) + ' = ' + fmt(result);
+  }
+
+  function calcMode2() {
+    const part = parseFloat(document.getElementById('m2-part').value);
+    const total = parseFloat(document.getElementById('m2-total').value);
+    if (isNaN(part) || isNaN(total) || total === 0) { document.getElementById('r2-value').textContent = '—'; document.getElementById('r2-sub').textContent = ''; return; }
+    const result = (part / total) * 100;
+    document.getElementById('r2-value').textContent = fmt(result) + '%';
+    document.getElementById('r2-sub').textContent = fmt(part) + ' is ' + fmt(result) + '% of ' + fmt(total);
+  }
+
+  function calcMode3() {
+    const from = parseFloat(document.getElementById('m3-from').value);
+    const to = parseFloat(document.getElementById('m3-to').value);
+    if (isNaN(from) || isNaN(to) || from === 0) { document.getElementById('r3-value').textContent = '—'; document.getElementById('r3-sub').textContent = ''; return; }
+    const change = ((to - from) / Math.abs(from)) * 100;
+    const sign = change >= 0 ? '+' : '';
+    document.getElementById('r3-value').textContent = sign + fmt(change) + '%';
+    document.getElementById('r3-sub').textContent = 'From ' + fmt(from) + ' to ' + fmt(to) + ': ' + sign + fmt(change) + '% change';
+  }
+
+  function resetAll() {
+    ['m1-percent','m1-total','m2-part','m2-total','m3-from','m3-to'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    ['r1-value','r2-value','r3-value'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '—';
+    });
+    ['r1-sub','r2-sub','r3-sub'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = '';
+    });
+  }
+</script>
+</body>
+</html>

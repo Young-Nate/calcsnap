@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CalcSnap — Free Online Calculators for Finance, Health & Everyday Math</title>
+  <meta name="description" content="Free instant online calculators — percentage, VAT, compound interest, salary, loan and more. No login, no ads, 100% free." />
+  <meta property="og:title" content="CalcSnap — Free Online Calculators" />
+  <meta property="og:description" content="Free instant online calculators for finance, health & everyday math. 10+ tools, no login, no ads." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="CalcSnap — Free Online Calculators" />
+  <meta name="twitter:description" content="Free instant online calculators for finance, health & everyday math. 10+ tools, no login, no ads." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "CalcSnap",
+  "url": "https://calcsnap.app/",
+  "description": "Free instant online calculators \u2014 percentage, VAT, compound interest, salary, loan and more. No login, no ads, 100% free.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://calcsnap.app/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+  </script>
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "CalcSnap",
+  "url": "https://calcsnap.app/",
+  "description": "Free online calculators for finance, health, and everyday math.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+
+  <!-- Fonts -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/theme.js"></script>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="index.html" class="logo" aria-label="CalcSnap home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/>
+        <rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/>
+        <rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/>
+      </svg>
+      Calc<span class="logo-dot">Snap</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="index.html">All Calculators</a></li>
+        <li><a href="index.html#finance">Finance</a></li>
+        <li><a href="index.html#utility">Utility</a></li>
+        <li><a href="index.html#lifestyle">Lifestyle</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+        <!-- Injected by JS -->
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<main>
+  <section class="hero">
+    <div class="container container--narrow">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12"/></svg>
+        10+ free calculators
+      </div>
+      <h1>Free Online Calculators<br>for Everything</h1>
+      <p>Instant results. No login. No ads that block the tool. Just fast, accurate calculators for finance, health, and everyday math.</p>
+
+      <!-- Search -->
+      <div class="search-bar" role="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" id="calc-search" placeholder="Search calculators…" aria-label="Search calculators" />
+      </div>
+
+      <!-- Category tabs -->
+      <div class="category-tabs" role="tablist" aria-label="Filter by category">
+        <button class="cat-tab active" data-category="all" role="tab">All</button>
+        <button class="cat-tab" data-category="finance" role="tab">💸 Finance</button>
+        <button class="cat-tab" data-category="utility" role="tab">🧮 Utility</button>
+        <button class="cat-tab" data-category="lifestyle" role="tab">🧑‍⚕️ Lifestyle</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="container container--wide">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-num">10+</span>
+          <div class="stat-label">Free calculators</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">0</span>
+          <div class="stat-label">Login required</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <div class="stat-label">Client-side (instant)</div>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Unlimited</span>
+          <div class="stat-label">Calculations per day</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINANCE SECTION -->
+  <section class="container container--wide" id="finance">
+    <div class="section-title">💸 Finance Calculators</div>
+    <p class="section-sub">High-traffic, evergreen tools for money math.</p>
+    <div class="calc-grid">
+
+      <a href="calculators/percentage/index.html" class="calc-card" data-name="percentage calculator" data-category="finance">
+        <div class="calc-card-icon">%</div>
+        <div class="calc-card-tag">Finance</div>
+        <h3>Percentage Calculator</h3>
+        <p>Calculate what percent one number is of another, or find the value of a percentage instantly.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/percentage-increase/index.html" class="calc-card" data-name="percentage increase decrease calculator" data-category="finance">
+        <div class="calc-card-icon">↑%</div>
+        <div class="calc-card-tag">Finance</div>
+        <h3>Percentage Increase Calculator</h3>
+        <p>Find the percentage change between two values — increase or decrease.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/vat/index.html" class="calc-card" data-name="vat calculator france germany uk spain belgium tva mwst iva btw" data-category="finance">
+        <div class="calc-card-icon">🌍</div>
+        <div class="calc-card-tag">Finance · Multi-country</div>
+        <h3>VAT Calculator</h3>
+        <p>Add or remove VAT for France, Germany, UK, Spain & Belgium. All local rates and terminology.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/compound-interest/index.html" class="calc-card" data-name="compound interest calculator investment" data-category="finance">
+        <div class="calc-card-icon">📈</div>
+        <div class="calc-card-tag">Finance · Investing</div>
+        <h3>Compound Interest Calculator</h3>
+        <p>See how your money grows over time with compound interest and regular contributions.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/salary/index.html" class="calc-card" data-name="salary net calculator france uk germany belgium take-home pay" data-category="finance">
+        <div class="calc-card-icon">💼</div>
+        <div class="calc-card-tag">Finance · Multi-country</div>
+        <h3>Salary Net Calculator</h3>
+        <p>Calculate your take-home pay from gross salary — France, UK, Germany & Belgium.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/loan-payment/index.html" class="calc-card" data-name="loan payment mortgage calculator monthly" data-category="finance">
+        <div class="calc-card-icon">🏦</div>
+        <div class="calc-card-tag">Finance</div>
+        <h3>Loan Payment Calculator</h3>
+        <p>Calculate your monthly loan or mortgage payment given principal, rate, and term.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- UTILITY SECTION -->
+  <section class="container container--wide" id="utility" style="margin-top: var(--space-12);">
+    <div class="section-title">🧮 Utility Calculators</div>
+    <p class="section-sub">Business and everyday math tools.</p>
+    <div class="calc-grid">
+
+      <a href="calculators/discount/index.html" class="calc-card" data-name="discount calculator sale price" data-category="utility">
+        <div class="calc-card-icon">🏷️</div>
+        <div class="calc-card-tag">Utility</div>
+        <h3>Discount Calculator</h3>
+        <p>Find the final price after any discount percentage, or calculate the discount amount.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/profit-margin/index.html" class="calc-card" data-name="profit margin calculator business gross" data-category="utility">
+        <div class="calc-card-icon">📊</div>
+        <div class="calc-card-tag">Utility · Business</div>
+        <h3>Profit Margin Calculator</h3>
+        <p>Calculate gross profit margin, markup percentage, and revenue from cost and selling price.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- LIFESTYLE SECTION -->
+  <section class="container container--wide" id="lifestyle" style="margin-top: var(--space-12); margin-bottom: var(--space-20);">
+    <div class="section-title">🧑‍⚕️ Lifestyle Calculators</div>
+    <p class="section-sub">Health and wellness tools used daily.</p>
+    <div class="calc-grid">
+
+      <a href="calculators/bmi/index.html" class="calc-card" data-name="bmi body mass index calculator healthy weight" data-category="lifestyle">
+        <div class="calc-card-icon">⚖️</div>
+        <div class="calc-card-tag">Lifestyle · Health</div>
+        <h3>BMI Calculator</h3>
+        <p>Calculate your Body Mass Index and find out which weight category you fall into.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+      <a href="calculators/calorie/index.html" class="calc-card" data-name="calorie tdee calculator daily energy" data-category="lifestyle">
+        <div class="calc-card-icon">🔥</div>
+        <div class="calc-card-tag">Lifestyle · Health</div>
+        <h3>Calorie Calculator</h3>
+        <p>Estimate your daily calorie needs (TDEE) based on age, weight, height, and activity level.</p>
+        <div class="calc-card-arrow">Try it →</div>
+      </a>
+
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container container--wide">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Finance</h4>
+        <a href="calculators/percentage/index.html">Percentage Calculator</a>
+        <a href="calculators/percentage-increase/index.html">Percentage Increase</a>
+        <a href="calculators/vat/index.html">VAT Calculator</a>
+        <a href="calculators/compound-interest/index.html">Compound Interest</a>
+        <a href="calculators/salary/index.html">Salary Net Calculator</a>
+        <a href="calculators/loan-payment/index.html">Loan Payment</a>
+      </div>
+      <div class="footer-col">
+        <h4>Utility</h4>
+        <a href="calculators/discount/index.html">Discount Calculator</a>
+        <a href="calculators/profit-margin/index.html">Profit Margin</a>
+      </div>
+      <div class="footer-col">
+        <h4>Lifestyle</h4>
+        <a href="calculators/bmi/index.html">BMI Calculator</a>
+        <a href="calculators/calorie/index.html">Calorie Calculator</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 CalcSnap — Free Online Calculators. Results are for informational purposes only.</p>
+      <p>Built for speed, SEO, and scale.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/theme.js"></script>
+<script src="js/search.js"></script>
+</body>
+</html>

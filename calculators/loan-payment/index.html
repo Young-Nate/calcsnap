@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Payment Calculator — Monthly Payment | CalcSnap</title>
+  <meta name="description" content="Calculate your monthly loan payment instantly. Enter loan amount, interest rate and term. Free online loan calculator — no login required." />
+  <meta property="og:title" content="Loan Payment Calculator — CalcSnap" />
+  <meta property="og:description" content="Calculate monthly loan payments instantly. Free online tool — enter amount, rate, and term." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://calcsnap.app/calculators/loan-payment/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Loan Payment Calculator — CalcSnap" />
+  <meta name="twitter:description" content="Calculate monthly loan payments instantly. Free online tool — enter amount, rate, and term." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/loan-payment/" />
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Loan Payment Calculator",
+  "url": "https://calcsnap.app/calculators/loan-payment/",
+  "description": "Free online loan payment calculator. Instant monthly payment results.",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+  </script>
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <script src="../../js/theme.js"></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../index.html">All Calculators</a></li><li><a href="../../index.html#finance">Finance</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../index.html">Home</a><span>›</span><span>Loan Payment Calculator</span></nav>
+    <div class="calc-header">
+      <div class="calc-tag">🏦 Finance Calculator</div>
+      <h1>Loan Payment Calculator</h1>
+      <p>Calculate your monthly loan or mortgage payment. Enter the principal, interest rate, and loan term to see total interest paid and full payment breakdown.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="loan-amount">Loan Amount</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="loan-amount" placeholder="e.g. 200000" min="0" step="1000" oninput="calcLoan()" /></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="loan-rate">Annual Interest Rate</label>
+              <div class="input-wrap has-suffix"><input type="number" id="loan-rate" placeholder="e.g. 3.5" min="0" step="0.01" oninput="calcLoan()" /><span class="input-suffix">%</span></div>
+            </div>
+            <div class="form-group">
+              <label for="loan-term">Loan Term</label>
+              <div style="display:flex;gap:var(--space-2);">
+                <div class="input-wrap" style="flex:1;"><input type="number" id="loan-term" placeholder="e.g. 20" min="1" step="1" oninput="calcLoan()" /></div>
+                <select id="loan-term-unit" onchange="calcLoan()" style="width:auto;padding-left:var(--space-3);padding-right:var(--space-6);">
+                  <option value="years" selected>Years</option>
+                  <option value="months">Months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="result-box" id="loan-result" style="display:none;">
+            <div class="result-label">Monthly Payment</div>
+            <div class="result-value" id="loan-monthly">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Loan amount</span><span class="value" id="loan-bd-principal">—</span></div>
+              <div class="breakdown-row"><span class="label">Total interest paid</span><span class="value" id="loan-bd-interest" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Total repaid</span><span class="value" id="loan-bd-total">—</span></div>
+              <div class="breakdown-row"><span class="label">Interest / Principal ratio</span><span class="value" id="loan-bd-ratio">—</span></div>
+            </div>
+          </div>
+
+          <!-- Visual bar -->
+          <div id="loan-bar-wrap" style="display:none;margin-top:var(--space-5);">
+            <div style="font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-text-faint);margin-bottom:var(--space-2);">Total payment breakdown</div>
+            <div style="height:10px;border-radius:var(--radius-full);background:var(--color-surface-dynamic);overflow:hidden;display:flex;">
+              <div id="loan-bar-p" style="background:var(--color-primary);transition:width 0.4s ease;height:100%;"></div>
+              <div id="loan-bar-i" style="background:var(--color-result-text);opacity:0.4;transition:width 0.4s ease;height:100%;"></div>
+            </div>
+            <div style="display:flex;gap:var(--space-4);margin-top:var(--space-2);font-size:var(--text-xs);">
+              <span style="display:flex;align-items:center;gap:var(--space-1);color:var(--color-text-muted);"><span style="width:10px;height:10px;border-radius:2px;background:var(--color-primary);flex-shrink:0;"></span>Principal</span>
+              <span style="display:flex;align-items:center;gap:var(--space-1);color:var(--color-text-muted);"><span style="width:10px;height:10px;border-radius:2px;background:var(--color-result-text);opacity:0.5;flex-shrink:0;"></span>Interest</span>
+            </div>
+          </div>
+
+          <button class="btn-reset" onclick="resetLoan()">↺ Reset</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>How Monthly Loan Payments Are Calculated</h2>
+            <p>Banks use the standard amortization formula to calculate fixed monthly payments. Each payment covers the accrued monthly interest plus a portion of the principal. Early payments are mostly interest; later payments are mostly principal.</p>
+            <div class="formula-box">M = P × [r(1+r)^n] / [(1+r)^n - 1]
+
+M = Monthly payment
+P = Loan principal (amount borrowed)
+r = Monthly interest rate (annual rate ÷ 12)
+n = Number of monthly payments (years × 12)</div>
+
+            <div class="example-box">
+              <div class="example-title">Example — €150,000 mortgage at 3.5% for 20 years</div>
+              <p>Monthly rate r = 3.5% / 12 = 0.2917% = 0.002917</p>
+              <p>n = 20 × 12 = 240 payments</p>
+              <p>M = 150,000 × [0.002917 × (1.002917)^240] / [(1.002917)^240 − 1]</p>
+              <p>M ≈ <strong>€869.84/month</strong></p>
+              <p>Total paid = 869.84 × 240 = €208,762 (€58,762 in interest)</p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">What is the current mortgage rate in France?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">French mortgage rates fluctuate with the ECB base rate. In early 2026, rates for 20-year loans are typically between 3.0% and 4.5% depending on the bank, your profile, and loan-to-value ratio. Use this calculator with your actual quoted rate from a bank for the most accurate estimate.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">What is the debt-to-income ratio limit in France?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">The HCSF (Haut Conseil de Stabilité Financière) limits total debt repayments to 35% of gross income in France. This includes your new mortgage plus any existing loans. If your monthly income is €4,000, maximum total repayments should not exceed €1,400/month.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Should I choose a shorter or longer loan term?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">A shorter term means higher monthly payments but much less interest paid overall. A longer term reduces monthly payments but significantly increases total interest. Use this calculator to compare: try the same loan at 15, 20, and 25 years to see the total interest difference — it can be tens of thousands of euros.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Related Calculators</h3>
+          <ul class="related-list">
+            <li><a href="../compound-interest/index.html"><span class="rel-icon">📈</span> Compound Interest</a></li>
+            <li><a href="../salary-france/index.html"><span class="rel-icon">💼</span> Salary Net France</a></li>
+            <li><a href="../percentage/index.html"><span class="rel-icon">%</span> Percentage Calculator</a></li>
+            <li><a href="../vat-france/index.html"><span class="rel-icon">🇫🇷</span> VAT France</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Quick Comparison</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);">
+            <p style="margin-bottom:var(--space-2);">€200,000 at 3.5%</p>
+            <div style="line-height:2.2;">
+              <div style="display:flex;justify-content:space-between;"><span>15 years</span><strong style="color:var(--color-text)">€1,430/mo</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span>20 years</span><strong style="color:var(--color-text)">€1,160/mo</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span>25 years</span><strong style="color:var(--color-text)">€1,001/mo</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span>30 years</span><strong style="color:var(--color-text)">€898/mo</strong></div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Estimates only. Contact your bank for exact rates.</p></div></div></footer>
+<script src="../../js/faq.js"></script>
+<script>
+  function fmt(n){return '€'+Math.round(n).toLocaleString('en-US');}
+  function fmt2(n){return '€'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+  function calcLoan() {
+    const P = parseFloat(document.getElementById('loan-amount').value);
+    const annualRate = parseFloat(document.getElementById('loan-rate').value);
+    const termVal = parseFloat(document.getElementById('loan-term').value);
+    const termUnit = document.getElementById('loan-term-unit').value;
+    if (isNaN(P)||isNaN(annualRate)||isNaN(termVal)||P<=0||termVal<=0) { document.getElementById('loan-result').style.display='none'; document.getElementById('loan-bar-wrap').style.display='none'; return; }
+
+    const n = termUnit === 'years' ? termVal * 12 : termVal;
+    const r = annualRate / 100 / 12;
+
+    let M;
+    if (r === 0) {
+      M = P / n;
+    } else {
+      M = P * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+    }
+
+    const totalPaid = M * n;
+    const totalInterest = totalPaid - P;
+    const ratio = (totalInterest / P * 100).toFixed(1);
+
+    document.getElementById('loan-result').style.display='';
+    document.getElementById('loan-bar-wrap').style.display='';
+    document.getElementById('loan-monthly').textContent = fmt2(M);
+    document.getElementById('loan-bd-principal').textContent = fmt(P);
+    document.getElementById('loan-bd-interest').textContent = fmt(totalInterest);
+    document.getElementById('loan-bd-total').textContent = fmt(totalPaid);
+    document.getElementById('loan-bd-ratio').textContent = ratio + '% of principal';
+
+    const pPrin = (P / totalPaid) * 100;
+    document.getElementById('loan-bar-p').style.width = pPrin + '%';
+    document.getElementById('loan-bar-i').style.width = (100 - pPrin) + '%';
+  }
+
+  function resetLoan() {
+    ['loan-amount','loan-rate','loan-term'].forEach(id=>{document.getElementById(id).value='';});
+    document.getElementById('loan-term-unit').selectedIndex=0;
+    document.getElementById('loan-result').style.display='none';
+    document.getElementById('loan-bar-wrap').style.display='none';
+  }
+</script>
+</body>
+</html>
