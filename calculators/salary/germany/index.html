@@ -1,1 +1,205 @@
-{"error":{"code":"api_version_disabled","message":"v6 of this endpoint has been disabled. Please use v8 instead.","fid":"1f093a56257d05cc3a43e92a2401ab240e42351f"}}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nettolohn Rechner Deutschland 2026 — Brutto Netto | CalcSnap</title>
+  <meta name="description" content="Kostenloser Nettolohn-Rechner für Deutschland 2026. Berechnen Sie Ihren Nettolohn aus dem Bruttolohn — inklusive Lohnsteuer und Sozialabgaben." />
+  <meta property="og:title" content="Nettolohn Rechner Deutschland 2026 — CalcSnap" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://calcsnap.app/calculators/salary/germany/" />
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../../css/style.css" />
+  <script src="../../../js/theme.js"></script>
+  <style>
+    .country-switcher { display:flex; gap:var(--space-2); flex-wrap:wrap; margin-bottom:var(--space-5); }
+    .country-btn { display:flex; align-items:center; gap:var(--space-2); padding:var(--space-2) var(--space-3); border:2px solid var(--color-border); border-radius:var(--radius-full); background:var(--color-surface); font-size:var(--text-xs); font-weight:600; color:var(--color-text-muted); cursor:pointer; transition:all 0.15s; font-family:var(--font-body); text-decoration:none; }
+    .country-btn:hover { border-color:var(--color-primary); color:var(--color-primary); }
+    .country-btn.active { background:var(--color-primary); border-color:var(--color-primary); color:#fff; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../../index.html" class="logo"><svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/><rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/><rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/><rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/></svg>Calc<span class="logo-dot">Snap</span></a>
+    <nav aria-label="Main navigation"><ul class="nav-links"><li><a href="../../../index.html">All Calculators</a></li><li><a href="../index.html">Salary Hub</a></li></ul></nav>
+    <div class="header-actions"></div>
+  </div>
+</header>
+
+<main class="calc-page">
+  <div class="container container--wide">
+    <nav class="breadcrumb"><a href="../../../index.html">Home</a><span>›</span><a href="../index.html">Salary Calculator</a><span>›</span><span>Germany</span></nav>
+
+    <div class="country-switcher" aria-label="Switch country">
+      <a href="../us/index.html" class="country-btn">🇺🇸 US</a>
+      <a href="../canada/index.html" class="country-btn">🇨🇦 Canada</a>
+      <a href="../france/index.html" class="country-btn">🇫🇷 France</a>
+      <a href="../uk/index.html" class="country-btn">🇬🇧 UK</a>
+      <a href="../germany/index.html" class="country-btn active">🇩🇪 Germany</a>
+      <a href="../belgium/index.html" class="country-btn">🇧🇪 Belgium</a>
+      <a href="../netherlands/index.html" class="country-btn">🇳🇱 Netherlands</a>
+    </div>
+
+    <div class="calc-header">
+      <div class="calc-tag">🇩🇪 Finance · Deutschland</div>
+      <h1>Nettolohn Rechner Deutschland — Brutto → Netto</h1>
+      <p>Berechnen Sie Ihren monatlichen Nettolohn aus Ihrem Bruttogehalt. Inklusive Lohnsteuer (Steuerklasse I), Kranken-, Renten-, Pflege- und Arbeitslosenversicherung 2026.</p>
+    </div>
+
+    <div class="calc-layout">
+      <div>
+        <div class="tool-card">
+          <div class="form-group">
+            <label for="gross-monthly">Bruttogehalt monatlich</label>
+            <div class="input-wrap has-prefix"><span class="input-prefix">€</span><input type="number" id="gross-monthly" placeholder="z.B. 3.500" min="0" step="50" oninput="calcDE()" /></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);">
+            <div class="form-group">
+              <label for="steuerklasse">Steuerklasse</label>
+              <select id="steuerklasse" onchange="calcDE()">
+                <option value="1" selected>Klasse I (Single)</option>
+                <option value="3">Klasse III (Verheiratet, Hauptverdiener)</option>
+                <option value="5">Klasse V (Verheiratet, Zweitverdiener)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bundesland">Bundesland</label>
+              <select id="bundesland" onchange="calcDE()">
+                <option value="west" selected>West (ohne Bayern)</option>
+                <option value="bavaria">Bayern</option>
+                <option value="east">Ost</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="result-box" id="salary-result" style="display:none;">
+            <div class="result-label">Nettolohn (monatlich)</div>
+            <div class="result-value" id="net-result">—</div>
+            <div class="result-breakdown">
+              <div class="breakdown-row"><span class="label">Bruttogehalt</span><span class="value" id="bd-gross">—</span></div>
+              <div class="breakdown-row"><span class="label">Lohnsteuer</span><span class="value" id="bd-tax" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Sozialabgaben gesamt</span><span class="value" id="bd-social" style="color:var(--color-text-muted);">—</span></div>
+              <div class="breakdown-row"><span class="label">Nettolohn monatlich</span><span class="value" id="bd-net">—</span></div>
+              <div class="breakdown-row"><span class="label">Jahresequivalent</span><span class="value" id="bd-annual">—</span></div>
+            </div>
+          </div>
+          <p style="margin-top:var(--space-4);font-size:var(--text-xs);color:var(--color-text-faint);">⚠️ Schätzwerte. Kirchensteuer, Solidaritätszuschlag (für hohe Einkommen) und individuelle Abzüge sind nicht berücksichtigt.</p>
+          <button class="btn-reset" onclick="resetSalary()">↺ Zurücksetzen</button>
+        </div>
+
+        <article>
+          <div class="content-section">
+            <h2>Sozialabgaben in Deutschland 2026</h2>
+            <p>In Deutschland werden Lohnsteuer und Sozialabgaben direkt vom Bruttolohn abgezogen. Die Sozialabgaben teilen sich zwischen Arbeitnehmer und Arbeitgeber auf.</p>
+            <div class="formula-box">Arbeitnehmeranteil Sozialabgaben (ca.):
+- Krankenversicherung:    ~7,3% (+ Zusatzbeitrag ~1,3%)
+- Rentenversicherung:     9,3%
+- Pflegeversicherung:     ~1,8% (+ 0,6% für Kinderlose)
+- Arbeitslosenversicherung: 1,3%
+Gesamt Sozialabgaben AN:  ~20%
+
+Lohnsteuer: abhängig von Steuerklasse und Einkommen
+(Steuerklasse I: ~15–35% je nach Gehaltshöhe)</div>
+            <div class="example-box">
+              <div class="example-title">Beispiel — 3.500 € Brutto / Monat (Steuerklasse I)</div>
+              <p>Sozialabgaben ≈ 20% → 3.500 × 0,20 = <strong>700 €</strong></p>
+              <p>Lohnsteuer ≈ 15% → 3.500 × 0,15 = <strong>525 €</strong></p>
+              <p>Nettolohn ≈ 3.500 − 700 − 525 = <strong>~2.275 €</strong></p>
+            </div>
+          </div>
+          <div class="content-section">
+            <h2>Häufig gestellte Fragen</h2>
+            <div class="faq-list">
+              <div class="faq-item">
+                <button class="faq-question">Was ist der Mindestlohn in Deutschland 2026?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Der gesetzliche Mindestlohn in Deutschland beträgt ab Januar 2025 12,82 €/Stunde. Bei einer 40-Stunden-Woche entspricht das einem Bruttomonatsgehalt von etwa 2.222 €. Überprüfen Sie den aktuellen Stand auf der Website des Bundesministeriums für Arbeit.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Was ist der Unterschied zwischen den Steuerklassen?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Steuerklasse I gilt für Ledige ohne Kinder. Klasse III für verheiratete Hauptverdiener — sie zahlen weniger Lohnsteuer. Klasse V gilt für den Zweitverdiener und hat höhere Abzüge. Klasse IV für verheiratete Paare mit ähnlichem Einkommen. II für Alleinerziehende.</div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-question">Was zahlt der Arbeitgeber zusätzlich?<svg class="faq-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
+                <div class="faq-answer">Der Arbeitgeber zahlt ebenfalls ca. 20% des Bruttolohns als Arbeitgeberanteil zur Sozialversicherung (Kranken-, Renten-, Pflege- und Arbeitslosenversicherung). Das bedeutet: Ein Bruttogehalt von 3.500 € kostet den Arbeitgeber tatsächlich ca. 4.200 € pro Monat.</div>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <div class="sidebar-widget">
+          <h3>Andere Länder</h3>
+          <ul class="related-list">
+            <li><a href="../france/index.html"><span class="rel-icon">🇫🇷</span> Salaire Net Frankreich</a></li>
+            <li><a href="../uk/index.html"><span class="rel-icon">🇬🇧</span> Take-home Pay UK</a></li>
+            <li><a href="../belgium/index.html"><span class="rel-icon">🇧🇪</span> Nettolohn Belgien</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Sozialabgaben 2026</h3>
+          <div style="font-size:var(--text-xs);color:var(--color-text-muted);line-height:2.2;">
+            <div style="display:flex;justify-content:space-between;"><span>Krankenversicherung</span><strong style="color:var(--color-text)">~8,6%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Rentenversicherung</span><strong style="color:var(--color-text)">9,3%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Pflegeversicherung</span><strong style="color:var(--color-text)">~1,8%</strong></div>
+            <div style="display:flex;justify-content:space-between;"><span>Arbeitslosenversicherung</span><strong style="color:var(--color-text)">1,3%</strong></div>
+            <div style="display:flex;justify-content:space-between;border-top:1px solid var(--color-divider);padding-top:var(--space-2);margin-top:var(--space-1);"><span>Gesamt AN</span><strong style="color:var(--color-primary)">~21%</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"><div class="container container--wide"><div class="footer-bottom"><p>© 2026 CalcSnap — <a href="../../../index.html" style="color:var(--color-primary)">All Calculators</a></p><p>Schätzwerte. Keine Steuerberatung.</p></div></div></footer>
+<script src="../../../js/faq.js"></script>
+<script>
+  function fmtEUR(n) { return Math.round(n).toLocaleString('de-DE') + ' €'; }
+
+  function calcDE() {
+    const gross = parseFloat(document.getElementById('gross-monthly').value);
+    if (isNaN(gross) || gross <= 0) { document.getElementById('salary-result').style.display = 'none'; return; }
+    const klasse = document.getElementById('steuerklasse').value;
+
+    // Social contributions (employee share) - approximate 2026
+    const kranken = gross * 0.086;   // ~8.6% incl. avg Zusatzbeitrag
+    const rente   = gross * 0.093;   // 9.3%
+    const pflege  = gross * 0.018;   // ~1.8% (without child surcharge)
+    const arblos  = gross * 0.013;   // 1.3%
+    const social  = kranken + rente + pflege + arblos;
+
+    // Lohnsteuer — simplified approximation by Steuerklasse
+    const annualGross = gross * 12;
+    let taxRate;
+    if (klasse === '1') {
+      // Rough progressive: ~0% <11604, progressive up to 45%
+      if (annualGross <= 11604) taxRate = 0;
+      else if (annualGross <= 17006) taxRate = 0.14;
+      else if (annualGross <= 66761) taxRate = 0.14 + (annualGross - 17006) / (66761 - 17006) * (0.42 - 0.14) * 0.5;
+      else if (annualGross <= 277826) taxRate = 0.42;
+      else taxRate = 0.45;
+    } else if (klasse === '3') {
+      // Double allowance
+      const adjustedAnnual = annualGross * 0.5;
+      taxRate = adjustedAnnual <= 11604 ? 0 : adjustedAnnual <= 66761 ? 0.18 : 0.32;
+    } else { // Klasse V
+      taxRate = annualGross <= 17006 ? 0.25 : annualGross <= 66761 ? 0.35 : 0.42;
+    }
+
+    const tax = gross * taxRate;
+    const net = gross - social - tax;
+
+    document.getElementById('salary-result').style.display = '';
+    document.getElementById('net-result').textContent = fmtEUR(net);
+    document.getElementById('bd-gross').textContent = fmtEUR(gross);
+    document.getElementById('bd-tax').textContent = '−' + fmtEUR(tax);
+    document.getElementById('bd-social').textContent = '−' + fmtEUR(social);
+    document.getElementById('bd-net').textContent = fmtEUR(net);
+    document.getElementById('bd-annual').textContent = fmtEUR(net * 12) + '/Jahr';
+  }
+
+  function resetSalary() { document.getElementById('gross-monthly').value = ''; document.getElementById('salary-result').style.display = 'none'; }
+</script>
+</body>
+</html>
