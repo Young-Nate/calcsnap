@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO Meta -->
+  <title>CalcSnap Blog — Tips, Guides &amp; Tutorials</title>
+  <meta name="description" content="Practical finance and math guides from CalcSnap. Learn how to calculate compound interest, VAT, percentages, and more with step-by-step tutorials." />
+  <link rel="canonical" href="https://calcsnap-dusky.vercel.app/blog/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="CalcSnap Blog — Tips, Guides &amp; Tutorials" />
+  <meta property="og:description" content="Practical finance and math guides from CalcSnap. Learn how to calculate compound interest, VAT, percentages, and more with step-by-step tutorials." />
+  <meta property="og:url" content="https://calcsnap-dusky.vercel.app/blog/" />
+  <meta property="og:site_name" content="CalcSnap" />
+  <meta property="og:image" content="https://calcsnap-dusky.vercel.app/og-default.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CalcSnap Blog — Tips, Guides &amp; Tutorials" />
+  <meta name="twitter:description" content="Practical finance and math guides from CalcSnap. Step-by-step tutorials on interest, VAT, percentages and more." />
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "CalcSnap Blog",
+    "url": "https://calcsnap-dusky.vercel.app/blog/",
+    "description": "Practical finance and math guides from CalcSnap.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CalcSnap",
+      "url": "https://calcsnap-dusky.vercel.app"
+    }
+  }
+  </script>
+
+  <meta name="robots" content="index, follow" />
+
+  <!-- Fonts (matches main site) -->
+  <link href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
+
+  <!-- Shared site CSS -->
+  <link rel="stylesheet" href="../../css/style.css" />
+
+  <script src="../../js/theme.js"></script>
+
+  <style>
+    /* ─── Blog-specific styles ─── */
+
+    /* Hero */
+    .blog-hero {
+      padding: 72px 0 48px;
+      text-align: center;
+    }
+    .blog-hero__eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent, #6c63ff);
+      background: color-mix(in srgb, var(--color-accent, #6c63ff) 12%, transparent);
+      border-radius: 100px;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+    .blog-hero__title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin: 0 0 16px;
+    }
+    .blog-hero__subtitle {
+      font-size: 1.125rem;
+      color: var(--color-text-muted, #6b7280);
+      max-width: 520px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Grid */
+    .blog-grid-section {
+      padding: 0 0 80px;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    /* Card */
+    .blog-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-surface, #ffffff);
+      border: 1px solid var(--color-border, #e5e7eb);
+      border-radius: 16px;
+      padding: 28px 28px 24px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.09);
+      border-color: var(--color-accent, #6c63ff);
+    }
+    .blog-card__tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-accent, #6c63ff);
+      background: color-mix(in srgb, var(--color-accent, #6c63ff) 10%, transparent);
+      border-radius: 100px;
+      padding: 3px 10px;
+      margin-bottom: 14px;
+      width: fit-content;
+    }
+    .blog-card__title {
+      font-family: 'Cabinet Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: 0 0 10px;
+      color: var(--color-text, #111827);
+    }
+    .blog-card__excerpt {
+      font-size: 0.9rem;
+      color: var(--color-text-muted, #6b7280);
+      line-height: 1.6;
+      flex: 1;
+      margin: 0 0 20px;
+    }
+    .blog-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-accent, #6c63ff);
+      transition: gap 0.15s ease;
+    }
+    .blog-card:hover .blog-card__cta {
+      gap: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .blog-hero { padding: 48px 0 32px; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER (matches site header exactly) -->
+<header class="site-header">
+  <div class="container container--wide">
+    <a href="../../index.html" class="logo" aria-label="CalcSnap home">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <rect width="28" height="28" rx="7" fill="currentColor" opacity="0.12"/>
+        <rect x="6" y="6" width="7" height="7" rx="2" fill="currentColor"/>
+        <rect x="15" y="6" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="6" y="15" width="7" height="7" rx="2" fill="currentColor" opacity="0.6"/>
+        <rect x="15" y="15" width="7" height="7" rx="2" fill="currentColor"/>
+      </svg>
+      Calc<span class="logo-dot">Snap</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links">
+        <li><a href="../../index.html">All Calculators</a></li>
+        <li><a href="../../index.html#finance">Finance</a></li>
+        <li><a href="../../index.html#utility">Utility</a></li>
+        <li><a href="../../index.html#lifestyle">Lifestyle</a></li>
+        <li><a href="index.html" aria-current="page">Blog</a></li>
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <button class="theme-toggle" data-theme-toggle aria-label="Toggle dark mode">
+        <!-- Injected by JS -->
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="blog-hero">
+    <div class="container container--wide">
+      <span class="blog-hero__eyebrow">CalcSnap Blog</span>
+      <h1 class="blog-hero__title">Tips, Guides &amp; Tutorials</h1>
+      <p class="blog-hero__subtitle">Step-by-step explainers on finance math, everyday calculations, and how to get the most from free online calculators.</p>
+    </div>
+  </section>
+
+  <!-- Article Grid -->
+  <section class="blog-grid-section">
+    <div class="container container--wide">
+      <div class="blog-grid">
+
+        <!-- Article 1: Compound Interest -->
+        <a href="how-to-calculate-compound-interest-online/index.html" class="blog-card">
+          <span class="blog-card__tag">Finance · Interest</span>
+          <h2 class="blog-card__title">How to Calculate Compound Interest Online</h2>
+          <p class="blog-card__excerpt">Learn how compound interest works, the formula behind it, and how to calculate it instantly online — with real examples and a free compound interest calculator.</p>
+          <span class="blog-card__cta">Read more →</span>
+        </a>
+
+        <!-- Article 2: VAT -->
+        <a href="how-to-calculate-vat-add-remove/index.html" class="blog-card">
+          <span class="blog-card__tag">Finance · Tax</span>
+          <h2 class="blog-card__title">VAT Calculator Guide: How to Add or Remove VAT (With Examples)</h2>
+          <p class="blog-card__excerpt">Learn how to calculate VAT step by step: add VAT to a net price, remove VAT from a gross price, and avoid common mistakes. Includes easy formulas and examples.</p>
+          <span class="blog-card__cta">Read more →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER (matches site footer exactly) -->
+<footer class="site-footer">
+  <div class="container container--wide">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Finance</h4>
+        <a href="../../calculators/percentage/index.html">Percentage Calculator</a>
+        <a href="../../calculators/percentage-increase/index.html">Percentage Increase</a>
+        <a href="../../calculators/vat/index.html">VAT Calculator</a>
+        <a href="../../calculators/compound-interest/index.html">Compound Interest</a>
+        <a href="../../calculators/salary/index.html">Salary Net Calculator</a>
+        <a href="../../calculators/loan-payment/index.html">Loan Payment</a>
+      </div>
+      <div class="footer-col">
+        <h4>Utility</h4>
+        <a href="../../calculators/discount/index.html">Discount Calculator</a>
+        <a href="../../calculators/profit-margin/index.html">Profit Margin</a>
+      </div>
+      <div class="footer-col">
+        <h4>Lifestyle</h4>
+        <a href="../../calculators/bmi/index.html">BMI Calculator</a>
+        <a href="../../calculators/calorie/index.html">Calorie Calculator</a>
+      </div>
+      <div class="footer-col">
+        <h4>Blog</h4>
+        <a href="index.html">All Articles</a>
+        <a href="how-to-calculate-compound-interest-online/index.html">Compound Interest Guide</a>
+        <a href="how-to-calculate-vat-add-remove/index.html">VAT Calculator Guide</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 CalcSnap — Free Online Calculators. Results are for informational purposes only.</p>
+      <p>Built for speed, SEO, and scale.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="../../js/theme.js"></script>
+</body>
+</html>
